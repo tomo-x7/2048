@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { Buttons } from "./Buttons";
+import { cell } from "./cell";
+const size = 4;
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	const [data, setdata] = useState<cell[][]>();
+	useEffect(() => {
+		setdata([...Array(size)].map((_v) => [...Array(size)].map((_v) => (new cell()))));
+	}, []);
+	console.log(data);
+	return (
+		<>
+			{data?.map((arr) => (
+				<div key={crypto.getRandomValues(new Uint16Array(1))[0].toString()}>
+					{arr.map((data) => (
+						<div key={crypto.getRandomValues(new Uint16Array(1))[0].toString()}>{data.num}</div>
+					))}
+				</div>
+			))}
+			<Buttons action={()=>{}} />
+		</>
+	);
 }
 
-export default App
+export default App;
