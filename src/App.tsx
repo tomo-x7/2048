@@ -1,12 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import { Buttons } from "./Buttons";
 import { cell } from "./cell";
 const size = 4;
 
 function App() {
+	const rawdata=useRef<Record<string,cell>>();
+	const views=useRef<{left:string[][],right:string[][],top:string[][],bottom:string[][]}>()
 	const [data, setdata] = useState<cell[][]>();
 	useEffect(() => {
-		setdata([...Array(size)].map((_v) => [...Array(size)].map((_v) => (new cell()))));
+		const arr1:string[][]=[];
+		for (let i = 0; i < size; i++) {
+			const arr2:string[];
+			for(let j=0;j<size;j++){
+				const key="hoge"
+				rawdata.current[key]=new cell();
+				arr2.push(key);
+			}
+			arr1.push(arr2)
+		}
+		views.left=arr1.slice();
+		views.right=arr1.map(v=>v.slice().reverse());
 	}, []);
 	console.log(data);
 	return (
