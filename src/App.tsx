@@ -18,7 +18,7 @@ function App() {
 			const arr2: string[] = [];
 			for (let j = 0; j < size; j++) {
 				const key = crypto.randomUUID();
-				rawdata.current[key] = new cell(10*i+j);
+				rawdata.current[key] = new cell(10 * i + j);
 				arr2.push(key);
 			}
 			arr1.push(arr2);
@@ -36,18 +36,29 @@ function App() {
 		views.current.top = arr3.slice();
 		views.current.bottom = arr3.slice().reverse();
 		setdata(views.current.left.map((v) => v.slice()).slice());
-		console.log(JSON.parse(JSON.stringify(Object.entries(views.current).map(a=>({k:a[0],v:a[1].map(b=>b.map(c=>rawdata.current[c]))})))))
+		console.log(
+			JSON.parse(
+				JSON.stringify(
+					Object.entries(views.current).map((a) => ({ k: a[0], v: a[1].map((b) => b.map((c) => rawdata.current[c])) })),
+				),
+			),
+		);
 	}, []);
 	console.log(data);
+	const getrandom = () => crypto.getRandomValues(new Uint16Array(1))[0].toString();
 	return (
 		<>
-			{data?.map((arr) => (
-				<div key={crypto.getRandomValues(new Uint16Array(1))[0].toString()}style={{display:"flex"}}>
-					{arr.map((key) => (
-						<div key={crypto.getRandomValues(new Uint16Array(1))[0].toString()}>{rawdata.current[key].num}</div>
-					))}
-				</div>
-			))}
+			<div style={{ display: "flex", flexDirection: "column",aspectRatio:1,maxWidth:"400px",border:"solid black 3px" }}>
+				{data?.map((arr) => (
+					<div key={getrandom()} style={{ display: "flex",flex:1 }}>
+						{arr.map((key) => (
+							<div key={getrandom()} style={{display:"flex",flex:1,alignItems:"center",justifyContent:"center",border:"solid black 3px"}}>
+								{rawdata.current[key].num}
+							</div>
+						))}
+					</div>
+				))}
+			</div>
 			<Buttons action={() => {}} />
 		</>
 	);
