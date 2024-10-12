@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Buttons } from "./Buttons";
-import { cell } from "./cell";
+import { cell, CellElem } from "./Cell";
 const size = 4;
 
 function App() {
@@ -15,6 +15,8 @@ function App() {
 	const mainref = useRef<HTMLDivElement>(null);
 	const [holdstate, sethold] = useState<"l" | "r" | "t" | "b" | "n" | undefined>();
 	useEffect(() => {
+		rawdata.current = {};
+		console.log("effect");
 		const arr1: string[][] = [];
 		for (let i = 0; i < size; i++) {
 			const arr2: string[] = [];
@@ -36,8 +38,8 @@ function App() {
 			arr3.push(arr4);
 		}
 		views.current.top = arr3.slice();
-		views.current.bottom = arr3.slice().reverse();
-		add()
+		views.current.bottom = arr3.map((v) => v.slice().reverse());
+		add();
 		setdata(views.current.left.map((v) => v.slice()).slice());
 		console.log(
 			JSON.parse(
@@ -47,11 +49,11 @@ function App() {
 			),
 		);
 	}, []);
-	const add=()=>{
-		const cand=Object.entries(rawdata.current).filter(v=>v[1].num===0)
-		const ran=Math.floor(Math.random() * cand.length)
-		rawdata.current[cand[ran][0]].num=2
-	}
+	const add = () => {
+		const cand = Object.entries(rawdata.current).filter((v) => v[1].num === 0);
+		const ran = Math.floor(Math.random() * cand.length);
+		rawdata.current[cand[ran][0]].num = 2;
+	};
 	const slide = (type: "right" | "left" | "top" | "bottom") => {
 		const view = views.current[type];
 		const data = view.map((v) => v.map((v) => rawdata.current[v]));
@@ -78,7 +80,10 @@ function App() {
 				}
 			}
 		}
-		add()
+		add();
+		Object.entries(rawdata.current).map((v) => {
+			v[1].isMarged = false;
+		});
 	};
 	console.log(data);
 	const getrandom = () => crypto.getRandomValues(new Uint16Array(1))[0].toString();
@@ -98,25 +103,14 @@ function App() {
 				{data?.map((arr) => (
 					<div key={getrandom()} style={{ display: "flex", flex: 1 }}>
 						{arr.map((key) => (
-							<div
-								key={getrandom()}
-								style={{
-									display: "flex",
-									flex: 1,
-									alignItems: "center",
-									justifyContent: "center",
-									border: "solid black 3px",
-								}}
-							>
-								{rawdata.current[key].num||""}
-							</div>
+							<CellElem cell={rawdata.current[key]} key={getrandom()} />
 						))}
 					</div>
 				))}
 			</div>
 			<Buttons
 				action={(str) => {
-					slide(str)
+					slide(str);
 					setdata(data?.slice());
 				}}
 				mainref={mainref}
