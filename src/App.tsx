@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Buttons } from "./Buttons";
 import { cell, CellElem } from "./Cells";
-const size = 4;
+const size = 5;
 
 function App() {
 	const rawdata = useRef<Record<string, cell>>({});
@@ -21,8 +21,8 @@ function App() {
 		for (let i = 0; i < size; i++) {
 			const arr2: string[] = [];
 			for (let j = 0; j < size; j++) {
-				const key = crypto.randomUUID();
-				rawdata.current[key] = new cell(/*2 ** Math.ceil(Math.random() * 10)*/ 0);
+				const key = crypto.getRandomValues(new Uint32Array(1))[0].toString()
+				rawdata.current[key] = new cell(0);
 				arr2.push(key);
 			}
 			arr1.push(arr2);
@@ -53,6 +53,7 @@ function App() {
 		const cand = Object.entries(rawdata.current).filter((v) => v[1].num === 0);
 		const ran = Math.floor(Math.random() * cand.length);
 		rawdata.current[cand[ran][0]].num = 2;
+		rawdata.current[cand[ran][0]].isNew = true;
 	};
 	const slide = (type: "right" | "left" | "top" | "bottom") => {
 		const view = views.current[type];
@@ -86,27 +87,24 @@ function App() {
 		});
 	};
 	console.log(data);
-	const getrandom = () => crypto.getRandomValues(new Uint16Array(1))[0].toString();
+	const boxsize = Math.min(Math.min(window.innerWidth, window.innerHeight) * 0.95, 400);
 	return (
 		<>
 			<div
 				ref={mainref}
 				style={{
-					display: "flex",
-					flexDirection: "column",
-					aspectRatio: 1,
-					maxWidth: "400px",
-					width: "100%",
-					border: "solid black 3px",
+					display: "grid",
+					width: `${boxsize}px`,
+					height: `${boxsize}px`,
+					gridTemplateColumns: `repeat(${size},1fr)`,
+					gridTemplateRows: `repeat(${size},1fr)`,
+					borderTop:"solid black 5px",
+					borderLeft:"solid black 5px"
 				}}
 			>
-				{data?.map((arr) => (
-					<div key={getrandom()} style={{ display: "flex", flex: 1 }}>
-						{arr.map((key) => (
-							<CellElem cell={rawdata.current[key]} key={getrandom()} />
-						))}
-					</div>
-				))}
+				{data?.map((arr, rowi) =>
+					arr.map((key, coli) => <CellElem rowi={rowi} coli={coli} cell={rawdata.current[key]} key={`${rowi}${coli}${rawdata.current[key].num}`} />),
+				)}
 			</div>
 			<Buttons
 				action={(str) => {
