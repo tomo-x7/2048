@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Buttons } from "./Buttons";
-import { cell, CellElem } from "./Cell";
+import { cell, CellElem } from "./Cells";
 const size = 4;
 
 function App() {
