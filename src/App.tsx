@@ -1,6 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { Buttons } from "./Buttons";
 import { cell, CellElem } from "./Cells";
+import { TouchCursor } from "./TouchCursor";
+import { Touches } from "./Touches";
+
 const size = 5;
 
 function App() {
@@ -13,7 +16,6 @@ function App() {
 	});
 	const [data, setdata] = useState<string[][]>();
 	const mainref = useRef<HTMLDivElement>(null);
-	const [holdstate, sethold] = useState<"l" | "r" | "t" | "b" | "n" | undefined>();
 	useEffect(() => {
 		rawdata.current = {};
 		console.log("effect");
@@ -21,7 +23,7 @@ function App() {
 		for (let i = 0; i < size; i++) {
 			const arr2: string[] = [];
 			for (let j = 0; j < size; j++) {
-				const key = crypto.getRandomValues(new Uint32Array(1))[0].toString()
+				const key = crypto.getRandomValues(new Uint32Array(1))[0].toString();
 				rawdata.current[key] = new cell(0);
 				arr2.push(key);
 			}
@@ -40,6 +42,7 @@ function App() {
 		views.current.top = arr3.slice();
 		views.current.bottom = arr3.map((v) => v.slice().reverse());
 		add();
+		add();
 		setdata(views.current.left.map((v) => v.slice()).slice());
 		console.log(
 			JSON.parse(
@@ -56,6 +59,7 @@ function App() {
 		rawdata.current[cand[ran][0]].isNew = true;
 	};
 	const slide = (type: "right" | "left" | "top" | "bottom") => {
+		let didslide=false;
 		const view = views.current[type];
 		const data = view.map((v) => v.map((v) => rawdata.current[v]));
 		for (let i = 0; i < size; i++) {
@@ -71,23 +75,27 @@ function App() {
 						cur.num = 0;
 						back.num *= 2;
 						back.isMarged = true;
+						didslide=true;
+						cur.isNew=false
 						break;
 					}
 					if (back.num === 0) {
 						back.num = cur.num;
 						cur.num = 0;
+						didslide=true
+						cur.isNew=false;
 						break;
 					}
 				}
 			}
 		}
-		add();
+		if(didslide)add();
 		Object.entries(rawdata.current).map((v) => {
 			v[1].isMarged = false;
 		});
 	};
 	console.log(data);
-	const boxsize = Math.min(Math.min(window.innerWidth, window.innerHeight) * 0.95, 400);
+	const boxsize = Math.max(Math.min(window.innerWidth* 0.95, window.innerHeight* 0.95,400) , 150);
 	return (
 		<>
 			<div
@@ -98,12 +106,15 @@ function App() {
 					height: `${boxsize}px`,
 					gridTemplateColumns: `repeat(${size},1fr)`,
 					gridTemplateRows: `repeat(${size},1fr)`,
-					borderTop:"solid black 5px",
-					borderLeft:"solid black 5px"
+					borderTop: "solid black 5px",
+					borderLeft: "solid black 5px",
+					touchAction: "none",
 				}}
 			>
 				{data?.map((arr, rowi) =>
-					arr.map((key, coli) => <CellElem rowi={rowi} coli={coli} cell={rawdata.current[key]} key={`${rowi}${coli}${rawdata.current[key].num}`} />),
+					arr.map((key, coli) => (
+						<CellElem size={boxsize/size} cell={rawdata.current[key]} key={`${rowi}${coli}${rawdata.current[key].num}`} />
+					)),
 				)}
 			</div>
 			<Buttons
@@ -111,10 +122,13 @@ function App() {
 					slide(str);
 					setdata(data?.slice());
 				}}
-				mainref={mainref}
-				sethold={sethold}
 			/>
-			<div>{holdstate}</div>
+			<Touches 
+				mainref={mainref}
+				action={(str) => {
+					slide(str);
+					setdata(data?.slice());
+				}} />
 		</>
 	);
 }

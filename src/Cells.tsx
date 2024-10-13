@@ -1,5 +1,5 @@
 import type { Property } from "csstype";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import style from "./cells.module.css";
 export class cell {
 	num: number;
@@ -26,13 +26,13 @@ const color: Record<number, [Property.Color, Property.Color]> = {
 	256: ["white", "#f4cc47"],
 	512: ["white", "#f6c937"],
 };
-export function CellElem({ cell, rowi, coli }: { cell: cell; rowi: number; coli: number }) {
+export function CellElem({ cell ,size}: { cell: cell; size:number }) {
 	if (cell.isNew) {
 		console.log("animate");
 		setTimeout(() => {
 			cell.isNew = false;
 		}, 500);
-	}
+	}console.log(`${Math.ceil(size * 0.19)}px`)
 	return (
 		<>
 			<div
@@ -51,7 +51,8 @@ export function CellElem({ cell, rowi, coli }: { cell: cell; rowi: number; coli:
 						height: "100%",
 						color: cell.num ? (color[cell.num]?.[0] ?? "white") : "white",
 						backgroundColor: cell.num ? (color[cell.num]?.[1] ?? "gray") : "white",
-						border: "solid black 2px",margin:"-2px"
+						border: "solid black 2px",margin:"-2px",
+						fontSize:`${Math.min(size /Math.ceil(Math.log10(cell.num)),size/1.7)}px`,textAlign:"center"
 					}}
 					className={cell.isNew ? style.newcell : ""}
 				>
