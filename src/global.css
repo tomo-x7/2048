@@ -1,0 +1,4 @@
+@font-face {
+	font-family: "gkktt";
+	src: url("/fonts/gkktt.woff2") format("woff2"), url("/fonts/gkktt.woff") format("woff"), url("/fonts/gkktt.ttf") format("ttf");
+}

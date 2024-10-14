@@ -26,13 +26,14 @@ const color: Record<number, [Property.Color, Property.Color]> = {
 	256: ["white", "#f4cc47"],
 	512: ["white", "#f6c937"],
 };
-export function CellElem({ cell ,size}: { cell: cell; size:number }) {
+export function CellElem({ cell, size }: { cell: cell; size: number }) {
 	if (cell.isNew) {
 		console.log("animate");
 		setTimeout(() => {
 			cell.isNew = false;
 		}, 500);
-	}console.log(`${Math.ceil(size * 0.19)}px`)
+	}
+	console.log(`${Math.ceil(size * 0.19)}px`);
 	return (
 		<>
 			<div
@@ -51,8 +52,14 @@ export function CellElem({ cell ,size}: { cell: cell; size:number }) {
 						height: "100%",
 						color: cell.num ? (color[cell.num]?.[0] ?? "white") : "white",
 						backgroundColor: cell.num ? (color[cell.num]?.[1] ?? "gray") : "white",
-						border: "solid black 2px",margin:"-2px",
-						fontSize:`${Math.min(size /Math.ceil(Math.log10(cell.num)),size/1.7)}px`,textAlign:"center"
+						border: "solid black 2px",
+						margin: "-2px",
+						fontSize: `${Math.min(size / Math.ceil(Math.log10(cell.num)), size / 1.7)}px`,
+						textAlign: "center",
+						fontFamily: "gkktt",
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
 					}}
 					className={cell.isNew ? style.newcell : ""}
 				>

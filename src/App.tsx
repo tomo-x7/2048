@@ -4,9 +4,7 @@ import { cell, CellElem } from "./Cells";
 import { TouchCursor } from "./TouchCursor";
 import { Touches } from "./Touches";
 
-const size = 5;
-
-function App() {
+export function App({size}:{size:number}) {
 	const rawdata = useRef<Record<string, cell>>({});
 	const views = useRef<{ left: string[][]; right: string[][]; top: string[][]; bottom: string[][] }>({
 		right: [],
@@ -51,7 +49,7 @@ function App() {
 				),
 			),
 		);
-	}, []);
+	}, [size]);
 	const add = () => {
 		const cand = Object.entries(rawdata.current).filter((v) => v[1].num === 0);
 		const ran = Math.floor(Math.random() * cand.length);
@@ -132,5 +130,3 @@ function App() {
 		</>
 	);
 }
-
-export default App;
