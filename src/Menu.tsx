@@ -4,12 +4,13 @@ import { Newbutton } from "./Newbutton";
 import { cell } from "./Cells";
 
 export function Menu() {
-    try{
+    
     const [id,setid]=useState<number>(0)
     const [size,setsize]=useState(4)
     let savedata:cell[][]|undefined=undefined;
     const raw=localStorage.getItem("save")
-    if(raw){
+    try{
+        if(raw){
         const {size,data}:{size:number,data:{num:number}[][]}=JSON.parse(raw)
         setsize(size)
         savedata=data.map(v=>v.map(v=>(new cell(v.num))))
