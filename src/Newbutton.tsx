@@ -70,6 +70,7 @@ export function Newbutton({
 							type="button"
 							onClick={() => {
 								setdata(undefined)
+								localStorage.removeItem("save")
 								setsize(newsize);
 								setid(Math.random());
 								setopen(false);

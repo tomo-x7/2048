@@ -38,8 +38,10 @@ export function App({size,savedata}:{size:number,savedata?:cell[][]}) {
 		}
 		views.current.top = arr3.slice();
 		views.current.bottom = arr3.map((v) => v.slice().reverse());
-		add();
-		add();
+		if(!savedata){
+			add();
+			add();
+		}
 		setdata(views.current.left.map((v) => v.slice()).slice());
 		console.log(
 			JSON.parse(

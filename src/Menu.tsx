@@ -10,7 +10,7 @@ export function Menu() {
     const [savedata,setdata]=useState<cell[][]|undefined>();
     useEffect(()=>{
         const raw=localStorage.getItem("save")
-        if(raw){
+		if(raw){
             const {size,data}:{size:number,data:{num:number}[][]}=JSON.parse(raw)
             setsize(size)
             setdata(data.map(v=>v.map(v=>(new cell(v.num)))))
