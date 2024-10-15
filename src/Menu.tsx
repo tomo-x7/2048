@@ -8,13 +8,16 @@ export function Menu() {
     const [size,setsize]=useState(4)
     let savedata:cell[][]|undefined=undefined;
     useEffect(()=>{
+        try{
         const raw=localStorage.getItem("save")
+        window.alert(raw)
         if(raw){
             const {size,data}:{size:number,data:{num:number}[][]}=JSON.parse(raw)
             setsize(size)
-            savedata=data.map(v=>v.map(v=>new cell(v.num)))
+            savedata=data.map(v=>v.map(v=>(new cell(v.num))))
         }
-    })
+    }catch(e){window.alert(e)}
+    },[])
 	return (
 		<>
 			<App key={id} size={size} savedata={savedata}/>
