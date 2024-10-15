@@ -1,5 +1,8 @@
 import { useEffect, useRef } from "react";
-
+import downi from "./assets/down.svg"
+import topi from "./assets/top.svg"
+import righti from "./assets/right.svg"
+import lefti from "./assets/left.svg"
 
 export function Buttons({
 	action,
@@ -10,9 +13,8 @@ export function Buttons({
 	const right = () => action("right");
 	const left = () => action("left");
 	const bottom = () => action("bottom");
-	
+
 	useEffect(() => {
-		
 		const keyaction = (ev: KeyboardEvent) => {
 			if (ev.repeat) {
 				return;
@@ -34,22 +36,24 @@ export function Buttons({
 		return () => {
 			document.removeEventListener("keydown", keyaction);
 		};
-	}, [ action]);
+	}, [action]);
 
 	return (
 		<>
-			<button type="button" onClick={top}>
-				↑
-			</button>
-			<button type="button" onClick={left}>
-				←
-			</button>
-			<button type="button" onClick={right}>
-				→
-			</button>
-			<button type="button" onClick={bottom}>
-				↓
-			</button>
+			<div style={{display:"grid", gridTemplate:"repeat(2,60px)/repeat(3,60px)"}}>
+				<button type="button" onClick={top} style={{gridColumn:2,gridRow:1}}>
+					<img src={topi} alt="↑" />
+				</button>
+				<button type="button" onClick={left} style={{gridColumn:1,gridRow:2}}>
+				<img src={lefti} alt="←" />
+				</button>
+				<button type="button" onClick={right} style={{gridColumn:3,gridRow:2}}>
+				<img src={righti} alt="→" />
+				</button>
+				<button type="button" onClick={bottom} style={{gridColumn:2,gridRow:2}}>
+				<img src={downi} alt="↓" />
+				</button>
+			</div>
 		</>
 	);
 }

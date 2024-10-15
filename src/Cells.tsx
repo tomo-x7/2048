@@ -28,12 +28,10 @@ const color: Record<number, [Property.Color, Property.Color]> = {
 };
 export function CellElem({ cell, size }: { cell: cell; size: number }) {
 	if (cell.isNew) {
-		console.log("animate");
 		setTimeout(() => {
 			cell.isNew = false;
 		}, 500);
 	}
-	console.log(`${Math.ceil(size * 0.19)}px`);
 	return (
 		<>
 			<div

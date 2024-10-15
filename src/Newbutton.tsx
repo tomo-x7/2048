@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { Close } from "./assets/close";
-import { cell } from "./Cells";
+import type { cell } from "./Cells";
 
 export function Newbutton({
 	size,
 	setsize,
-	setid,setdata
+	setid,
 }: {
 	size: number;
-	setsize: React.Dispatch<React.SetStateAction<number>>;
+	setsize: (p:number)=>void;
 	setid: React.Dispatch<React.SetStateAction<number>>;
-	setdata:React.Dispatch<React.SetStateAction<cell[][]|undefined>>
 }) {
 	const [isopen, setopen] = useState(false);
 	const [newsize, setnewsize] = useState(size);
@@ -70,7 +69,6 @@ export function Newbutton({
 						<button
 							type="button"
 							onClick={() => {
-								setdata(undefined)
 								setsize(newsize);
 								setid(Math.random());
 								setopen(false);
