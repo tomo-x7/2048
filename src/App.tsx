@@ -4,6 +4,7 @@ import { cell, CellElem } from "./Cells";
 import { Touches } from "./Touches";
 
 export function App({size,savedata}:{size:number,savedata?:cell[][]}) {
+	window.alert(savedata)
 	const rawdata = useRef<Record<string, cell>>({});
 	const views = useRef<{ left: string[][]; right: string[][]; top: string[][]; bottom: string[][] }>({
 		right: [],
