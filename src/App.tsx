@@ -49,7 +49,7 @@ export function App({size,savedata}:{size:number,savedata?:cell[][]}) {
 				),
 			),
 		);
-	}, [size]);
+	}, [size,savedata]);
 	const save=()=>{
 		if(!data){return}
 		const raw=data.map(v=>v.map(v=>{
