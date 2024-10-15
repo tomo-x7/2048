@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Close } from "./assets/close";
+import { cell } from "./Cells";
 
 export function Newbutton({
 	size,
@@ -70,7 +71,6 @@ export function Newbutton({
 							type="button"
 							onClick={() => {
 								setdata(undefined)
-								localStorage.removeItem("save")
 								setsize(newsize);
 								setid(Math.random());
 								setopen(false);
