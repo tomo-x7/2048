@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { App } from "./App";
 import { Newbutton } from "./Newbutton";
+import { cell } from "./Cells";
 
 export function Menu() {
     const [id,setid]=useState<number>(0)
     const [size,setsize]=useState(4)
+    let savedata:cell[][]|undefined=undefined;
+    useEffect(()=>{
+        const raw=localStorage.getItem("save")
+        if(raw){
+            const {size,data}:{size:number,data:{num:number}[][]}=JSON.parse(raw)
+            setsize(size)
+            savedata=data.map(v=>v.map(v=>new cell(v.num)))
+        }
+    })
 	return (
 		<>
-			<App key={id} size={size}/>
+			<App key={id} size={size} savedata={savedata}/>
             <Newbutton size={size} setsize={setsize} setid={setid} />
             <div>
                 <h2>使い方</h2>

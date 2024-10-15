@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { Buttons } from "./Buttons";
 import { cell, CellElem } from "./Cells";
-import { TouchCursor } from "./TouchCursor";
 import { Touches } from "./Touches";
 
-export function App({size}:{size:number}) {
+export function App({size,savedata}:{size:number,savedata?:cell[][]}) {
 	const rawdata = useRef<Record<string, cell>>({});
 	const views = useRef<{ left: string[][]; right: string[][]; top: string[][]; bottom: string[][] }>({
 		right: [],
@@ -22,7 +21,7 @@ export function App({size}:{size:number}) {
 			const arr2: string[] = [];
 			for (let j = 0; j < size; j++) {
 				const key = crypto.getRandomValues(new Uint32Array(1))[0].toString();
-				rawdata.current[key] = new cell(0);
+				rawdata.current[key] =savedata?savedata[i][j]: new cell(0);
 				arr2.push(key);
 			}
 			arr1.push(arr2);
@@ -50,6 +49,14 @@ export function App({size}:{size:number}) {
 			),
 		);
 	}, [size]);
+	const save=()=>{
+		const raw=data.map(v=>v.map(v=>{
+			const c=rawdata.current[v]
+			return {num:c.num}
+		}))
+		const sdata={size:size,data:raw}
+		localStorage.setItem("save",JSON.stringify(sdata))
+	}
 	const add = () => {
 		const cand = Object.entries(rawdata.current).filter((v) => v[1].num === 0);
 		const ran = Math.floor(Math.random() * cand.length);
@@ -91,6 +98,7 @@ export function App({size}:{size:number}) {
 		Object.entries(rawdata.current).map((v) => {
 			v[1].isMarged = false;
 		});
+		save();
 	};
 	console.log(data);
 	const boxsize = Math.max(Math.min(window.innerWidth* 0.95, window.innerHeight* 0.95,400) , 150);
