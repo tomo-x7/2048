@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { App } from "./App";
 import { Newbutton } from "./Newbutton";
 import { cell } from "./Cells";
+import { Header } from "./Header";
 
 export function Menu() {
 	const [id, setid] = useState<number>(0);
@@ -15,25 +16,9 @@ export function Menu() {
 	}, []);
 	return (
 		<>
-			<div
-				style={{
-					position: "sticky",
-					top: 0,
-					left: 0,
-					right: 0,
-					backgroundColor: "#666",
-					marginBottom: "15px",
-					display: "flex",
-					justifyContent: "space-between",
-				}}
-			>
-				<h2 style={{ margin: 0, fontFamily: "gkktt" }}>
-					<span style={{ fontSize: "1.2em" }}>2048</span>パズル
-				</h2>
-				<div style={{}}>
-					<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: undefined })} setid={setid} />
-				</div>
-			</div>
+			<Header
+				Newbutton={<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: undefined })} setid={setid} />}
+			/>
 			<App key={id} size={data.size} savedata={data.saved} />
 			<div style={{ margin: "8px" }}>
 				<h2>使い方</h2>
