@@ -15,9 +15,7 @@ export function Menu() {
         setsize(size)
         savedata=data.map(v=>v.map(v=>(new cell(v.num))))
     }
-}catch(e){
-    window.alert(e)
-}
+
     return (
 		<>
 			<App key={id} size={size} savedata={savedata}/>
@@ -31,4 +29,7 @@ export function Menu() {
             </div>
 		</>
 	);
+}catch(e){
+    window.alert(e)
+}
 }
