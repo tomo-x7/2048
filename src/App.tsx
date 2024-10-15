@@ -80,6 +80,10 @@ export function App({size,savedata}:{size:number,savedata?:cell[][]}) {
 				for (let k = 0; k < j; k++) {
 					const back = data[i][k];
 					if (cur.num === back.num && !cur.isMarged && !back.isMarged) {
+						const a=(data[i] as cell[]).slice(k+1,j).reduce((p,c)=>p+c.num,0)
+						if(a!==0){
+							continue;
+						}
 						cur.num = 0;
 						back.num *= 2;
 						back.isMarged = true;
