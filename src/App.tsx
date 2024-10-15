@@ -50,6 +50,7 @@ export function App({size,savedata}:{size:number,savedata?:cell[][]}) {
 		);
 	}, [size]);
 	const save=()=>{
+		if(!data){return}
 		const raw=data.map(v=>v.map(v=>{
 			const c=rawdata.current[v]
 			return {num:c.num}
