@@ -4,6 +4,7 @@ import { Newbutton } from "./Newbutton";
 import { cell } from "./Cells";
 
 export function Menu() {
+    try{
     const [id,setid]=useState<number>(0)
     const [size,setsize]=useState(4)
     let savedata:cell[][]|undefined=undefined;
@@ -13,6 +14,9 @@ export function Menu() {
         setsize(size)
         savedata=data.map(v=>v.map(v=>(new cell(v.num))))
     }
+}catch(e){
+    window.alert(e)
+}
     return (
 		<>
 			<App key={id} size={size} savedata={savedata}/>
