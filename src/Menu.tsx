@@ -19,7 +19,7 @@ export function Menu() {
     return (
 		<>
 			<App key={id} size={size} savedata={savedata}/>
-            <Newbutton size={size} setsize={setsize} setid={setid} />
+            <Newbutton size={size} setsize={setsize} setid={setid} setdata={setdata}/>
             <div>
                 <h2>使い方</h2>
                 <ul>
