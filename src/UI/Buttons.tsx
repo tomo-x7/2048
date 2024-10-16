@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import downi from "./assets/down.svg"
-import topi from "./assets/top.svg"
-import righti from "./assets/right.svg"
-import lefti from "./assets/left.svg"
+import downi from "../assets/down.svg"
+import topi from "../assets/top.svg"
+import righti from "../assets/right.svg"
+import lefti from "../assets/left.svg"
 
 export function Buttons({
 	action,

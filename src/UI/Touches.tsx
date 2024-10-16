@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { TouchCursor } from "./TouchCursor";
-
+import down from "../assets/down.svg";
+import left from "../assets/left.svg";
+import none from "../assets/none.svg";
+import right from "../assets/right.svg";
+import top from "../assets/top.svg";
+const images = { l: left, r: right, t: top, b: down, n: none };
 const limit = 30;
 
 export function Touches({
@@ -10,7 +14,7 @@ export function Touches({
 	type pos = { x: number; y: number; identifier: number };
 	const touchpos = useRef<{ start?: pos; end?: pos }>({});
 	const [direction, setdirection] = useState<"r" | "l" | "t" | "b" | "n" | undefined>();
-	const [touch,settouch]=useState<{x:number,y:number}>()
+	const [touch, settouch] = useState<{ x: number; y: number }>();
 	useEffect(() => {
 		const touchaction = (a: "right" | "left" | "top" | "bottom" | "none" | undefined) => {
 			if (!a) {
@@ -26,21 +30,19 @@ export function Touches({
 			if (!(touchpos.current.start && touchpos.current.end)) return;
 			const xdiff = touchpos.current.end.x - touchpos.current.start.x;
 			const ydiff = touchpos.current.end.y - touchpos.current.start.y;
-			if (Math.max(Math.abs(xdiff), Math.abs(ydiff)) < limit) {
+			if (Math.abs(xdiff) ** 2 + Math.abs(ydiff) ** 2 < limit ** 2) {
 				return "none";
 			}
 			if (Math.abs(xdiff) > Math.abs(ydiff)) {
 				if (xdiff >= 0) {
 					return "right";
-				}
-				if (xdiff <= 0) {
+				} else {
 					return "left";
 				}
 			} else {
 				if (ydiff >= 0) {
 					return "bottom";
-				}
-				if (ydiff <= 0) {
+				} else {
 					return "top";
 				}
 			}
@@ -49,7 +51,7 @@ export function Touches({
 			const t = ev.changedTouches[0];
 			touchpos.current.start = { identifier: t.identifier, x: t.clientX, y: t.clientY };
 			setdirection("n");
-			settouch({x:t.clientX,y:t.clientY})
+			settouch({ x: t.clientX, y: t.clientY });
 		};
 		const touchmove = (ev: TouchEvent) => {
 			ev.preventDefault();
@@ -62,7 +64,7 @@ export function Touches({
 			touchpos.current.end = t ? { identifier: t.identifier, x: t.clientX, y: t.clientY } : undefined;
 			touchaction(check());
 			setdirection(undefined);
-			settouch(undefined)
+			settouch(undefined);
 		};
 
 		mainref.current?.addEventListener("touchstart", touchstart);
@@ -74,5 +76,16 @@ export function Touches({
 			mainref.current?.removeEventListener("touchend", touchend);
 		};
 	}, [action, mainref]);
-	return <><TouchCursor direction={direction} touch={touch} limit={limit} /></>;
+	if (!(direction && touch)) {
+		return <></>;
+	}
+	return (
+		<>
+			<div
+				style={{ position: "fixed", top: limit * -1, left: limit * -1, translate: `${touch.x}px ${touch.y}px` }}
+			>
+				<img src={images[direction]} alt="" width={limit * 2} height={limit * 2} />
+			</div>
+		</>
+	);
 }

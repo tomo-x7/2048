@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { Buttons } from "./Buttons";
+import { Buttons } from "./UI/Buttons";
 import { cell, CellElem } from "./Cells";
-import { Touches } from "./Touches";
+import { Touches } from "./UI/Touches";
 
 export function App({
 	size,
