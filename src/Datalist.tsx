@@ -14,7 +14,10 @@ export function Datalist({ action }: { action: () => void }) {
     }, [])
     return (<>
         <div>
-            {data.map(savedata => (<button type="button" onClick={action}><Dataview data={savedata} /></button>))}
+            {data.map(savedata => (
+                <button type="button" onClick={action}>
+                    {savedata?<Dataview data={savedata} />:<div>no data</div>}
+                </button>))}
         </div>
     </>)
 }
