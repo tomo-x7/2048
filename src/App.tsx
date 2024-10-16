@@ -3,7 +3,11 @@ import { Buttons } from "./Buttons";
 import { cell, CellElem } from "./Cells";
 import { Touches } from "./Touches";
 
-export function App({ size, savedata }: { size: number; savedata?: number[][] }) {
+export function App({
+	size,
+	savedata,
+	topdata,
+}: { size: number; savedata?: number[][]; topdata: React.MutableRefObject<number[][]|null> }) {
 	console.log(`render with ${JSON.stringify(savedata)}`);
 	const rawdata = useRef<Record<string, cell>>({});
 	const views = useRef<{ left: string[][]; right: string[][]; top: string[][]; bottom: string[][] }>({
@@ -14,6 +18,7 @@ export function App({ size, savedata }: { size: number; savedata?: number[][] })
 	});
 	const [data, setdata] = useState<string[][]>();
 	const mainref = useRef<HTMLDivElement>(null);
+	topdata.current=data?.map(v=>v.map(v=>rawdata.current[v].num))??null
 	useEffect(() => {
 		rawdata.current = {};
 		const arr1: string[][] = [];
@@ -62,7 +67,7 @@ export function App({ size, savedata }: { size: number; savedata?: number[][] })
 			}),
 		);
 		const sdata = { size: size, data: raw };
-		localStorage.setItem("autosave", JSON.stringify(sdata));
+		localStorage.setItem("save", JSON.stringify(sdata));
 	};
 	const add = () => {
 		const cand = Object.entries(rawdata.current).filter((v) => v[1].num === 0);
@@ -114,43 +119,45 @@ export function App({ size, savedata }: { size: number; savedata?: number[][] })
 	const boxsize = Math.max(Math.min(window.innerWidth * 0.95, window.innerHeight * 0.95, 400), 150);
 	return (
 		<>
-			<div style={{width:"fit-content",display:"flex",flexDirection:"column",alignItems:"center", margin:"8px"}}>
-			<div
-				ref={mainref}
-				style={{
-					display: "grid",
-					width: `${boxsize}px`,
-					height: `${boxsize}px`,
-					gridTemplateColumns: `repeat(${size},1fr)`,
-					gridTemplateRows: `repeat(${size},1fr)`,
-					borderTop: "solid black 5px",
-					borderLeft: "solid black 5px",
-					touchAction: "none",marginBottom:"20px"
-				}}
-			>
-				{data?.map((arr, rowi) =>
-					arr.map((key, coli) => (
-						<CellElem
-							size={boxsize / size}
-							cell={rawdata.current[key]}
-							key={`${rowi}${coli}${rawdata.current[key].num}`}
-						/>
-					)),
-				)}
+			<div style={{ width: "fit-content", display: "flex", flexDirection: "column", alignItems: "center", margin: "8px" }}>
+				<div
+					ref={mainref}
+					style={{
+						display: "grid",
+						width: `${boxsize}px`,
+						height: `${boxsize}px`,
+						gridTemplateColumns: `repeat(${size},1fr)`,
+						gridTemplateRows: `repeat(${size},1fr)`,
+						borderTop: "solid black 5px",
+						borderLeft: "solid black 5px",
+						touchAction: "none",
+						marginBottom: "20px",
+					}}
+				>
+					{data?.map((arr, rowi) =>
+						arr.map((key, coli) => (
+							<CellElem
+								size={boxsize / size}
+								cell={rawdata.current[key]}
+								key={`${rowi}${coli}${rawdata.current[key].num}`}
+							/>
+						)),
+					)}
+				</div>
+				<Buttons
+					action={(str) => {
+						slide(str);
+						setdata(data?.slice());
+					}}
+				/>
+				<Touches
+					mainref={mainref}
+					action={(str) => {
+						slide(str);
+						setdata(data?.slice());
+					}}
+				/>
 			</div>
-			<Buttons
-				action={(str) => {
-					slide(str);
-					setdata(data?.slice());
-				}}
-			/>
-			<Touches
-				mainref={mainref}
-				action={(str) => {
-					slide(str);
-					setdata(data?.slice());
-				}}
-			/></div>
 		</>
 	);
 }

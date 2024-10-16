@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Savelist } from "./Savelist";
 import { Loadlist } from "./Loadlist";
 
-export function Header({ Newbutton }: { Newbutton: React.ReactElement }) {
+export function Header({ Newbutton,topdata,load }: { Newbutton: React.ReactElement,topdata:React.MutableRefObject<(number[][]|null)> ;load:(data:number[][])=>void},) {
 	const [saveload, setsaveload] = useState<"save" | "load" | undefined>();
 	return (
 		<div
@@ -31,9 +31,9 @@ export function Header({ Newbutton }: { Newbutton: React.ReactElement }) {
 			</div>
 			{saveload &&
 				(saveload === "save" ? (
-					<Savelist close={() => setsaveload(undefined)} />
+					<Savelist close={() => setsaveload(undefined)} topdata={topdata} />
 				) : (
-					<Loadlist close={() => setsaveload(undefined)} />
+					<Loadlist close={() => setsaveload(undefined)} load={load} />
 				))}
 		</div>
 	);

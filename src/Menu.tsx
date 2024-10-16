@@ -3,23 +3,28 @@ import { App } from "./App";
 import { Newbutton } from "./Newbutton";
 import { cell } from "./Cells";
 import { Header } from "./Header";
+import { useRef } from "react";
 
 export function Menu() {
 	const [id, setid] = useState<number>(0);
 	const [data, setdata] = useState<{ size: number; saved: number[][] | undefined }>({ size: 4, saved: undefined });
+	const topdata=useRef<number[][]>(null)
 	useEffect(() => {
-		const raw = localStorage.getItem("autosave");
+		const raw = localStorage.getItem("save");
 		if (raw) {
 			const { size, data }: { size: number; data: { num: number }[][] } = JSON.parse(raw);
 			setdata({ size, saved: data.map((v) => v.map((v) => v.num)) });
 		}
 	}, []);
+	const load=(data:number[][])=>{
+		setdata({size:data.length,saved:data})
+	}
 	return (
 		<>
-			<Header
-				Newbutton={<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: undefined })} setid={setid} />}
+			<Header topdata={topdata} load={load}
+				Newbutton={<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: undefined })} setid={setid}  />}
 			/>
-			<App key={id} size={data.size} savedata={data.saved} />
+			<App key={id} size={data.size} savedata={data.saved} topdata={topdata} />
 			<div style={{ margin: "8px" }}>
 				<h2>使い方</h2>
 				<ul>
