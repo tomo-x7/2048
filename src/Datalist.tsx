@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { Dataview } from "./Dataview";
 
 export function Datalist({ action }: { action: () => void }) {
-    const [data, setdata] = useState<number[][][] | undefined[]>([...new Array(10)].map(v => undefined))
+    const [data, setdata] = useState<(number[][] | undefined)[]>([...new Array(10)].map(v => undefined))
     useEffect(() => {
         const raw = localStorage.getItem("savedata")
         if (!raw) {
