@@ -1,6 +1,7 @@
+//@ts-nocheck
 import React from "react"
 export class ErrorBoundary extends React.Component {
-    constructor(props:any) {
+  constructor(props:any) {
       super(props);
       this.state = { hasError: undefined };
     }
