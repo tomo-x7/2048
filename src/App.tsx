@@ -7,7 +7,7 @@ export function App({
 	size,
 	savedata,
 	topdata,
-}: { size: number; savedata?: number[][]; topdata: React.MutableRefObject<number[][]|null> }) {
+}: { size: number; savedata?: number[][]; topdata: React.MutableRefObject<number[][] | null> }) {
 	console.log(`render with ${JSON.stringify(savedata)}`);
 	const rawdata = useRef<Record<string, cell>>({});
 	const views = useRef<{ left: string[][]; right: string[][]; top: string[][]; bottom: string[][] }>({
@@ -18,7 +18,7 @@ export function App({
 	});
 	const [data, setdata] = useState<string[][]>();
 	const mainref = useRef<HTMLDivElement>(null);
-	topdata.current=data?.map(v=>v.map(v=>rawdata.current[v].num))??null
+	topdata.current = data?.map((v) => v.map((v) => rawdata.current[v].num)) ?? null;
 	useEffect(() => {
 		rawdata.current = {};
 		const arr1: string[][] = [];
@@ -51,7 +51,10 @@ export function App({
 		console.log(
 			JSON.parse(
 				JSON.stringify(
-					Object.entries(views.current).map((a) => ({ k: a[0], v: a[1].map((b) => b.map((c) => rawdata.current[c])) })),
+					Object.entries(views.current).map((a) => ({
+						k: a[0],
+						v: a[1].map((b) => b.map((c) => rawdata.current[c])),
+					})),
 				),
 			),
 		);
@@ -119,8 +122,9 @@ export function App({
 	const boxsize = Math.max(Math.min(window.innerWidth * 0.95, window.innerHeight * 0.95, 400), 150);
 	return (
 		<>
-			<div style={{ width: "fit-content", display: "flex", flexDirection: "column", alignItems: "center", margin: "8px" }}>
+			<div className="flex flex-col items-center m-[8px] w-fit">
 				<div
+					className="border-t-[5px] border-l-[5px] border-black border-solid touch-none mb-[20px]"
 					ref={mainref}
 					style={{
 						display: "grid",
@@ -128,10 +132,6 @@ export function App({
 						height: `${boxsize}px`,
 						gridTemplateColumns: `repeat(${size},1fr)`,
 						gridTemplateRows: `repeat(${size},1fr)`,
-						borderTop: "solid black 5px",
-						borderLeft: "solid black 5px",
-						touchAction: "none",
-						marginBottom: "20px",
 					}}
 				>
 					{data?.map((arr, rowi) =>

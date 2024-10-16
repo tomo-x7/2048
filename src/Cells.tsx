@@ -34,24 +34,11 @@ export function CellElem({ cell, size }: { cell: cell; size: number }) {
 	}
 	return (
 		<>
-			<div
-				style={{
-					display: "flex",
-					flex: 1,
-					alignItems: "center",
-					justifyContent: "center",
-					borderRight: "solid black 5px",
-					borderBottom: "solid black 5px",
-				}}
-			>
+			<div className="flex flex-1 items-center justify-center border-r-[5px] border-b-[5px] border-black border-solid">
 				<div
 					style={{
-						width: "100%",
-						height: "100%",
 						color: cell.num ? (color[cell.num]?.[0] ?? "white") : "white",
 						backgroundColor: cell.num ? (color[cell.num]?.[1] ?? "gray") : "white",
-						border: "solid black 2px",
-						margin: "-2px",
 						fontSize: `${Math.min(size / Math.ceil(Math.log10(cell.num)), size / 1.7)}px`,
 						textAlign: "center",
 						fontFamily: "gkktt",
@@ -59,7 +46,7 @@ export function CellElem({ cell, size }: { cell: cell; size: number }) {
 						justifyContent: "center",
 						alignItems: "center",
 					}}
-					className={cell.isNew ? style.newcell : ""}
+					className={`w-full h-full border-black border-solid border-2 m-[-2px] text-center flex justify-center items-center${cell.isNew ? style.newcell : ""}`}
 				>
 					{cell.num || ""}
 				</div>
