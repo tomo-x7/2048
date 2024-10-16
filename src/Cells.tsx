@@ -15,7 +15,7 @@ export class cell {
 	}
 }
 
-const color: Record<number, [Property.Color, Property.Color]> = {
+export const color: Record<number, [Property.Color, Property.Color]> = {
 	2: ["#766553", "#eee4da"],
 	4: ["#756452", "#ebd8b6"],
 	8: ["#ffffff", "#f2b177"],

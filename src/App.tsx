@@ -62,7 +62,7 @@ export function App({ size, savedata }: { size: number; savedata?: number[][] })
 			}),
 		);
 		const sdata = { size: size, data: raw };
-		localStorage.setItem("save", JSON.stringify(sdata));
+		localStorage.setItem("autosave", JSON.stringify(sdata));
 	};
 	const add = () => {
 		const cand = Object.entries(rawdata.current).filter((v) => v[1].num === 0);

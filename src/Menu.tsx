@@ -8,7 +8,7 @@ export function Menu() {
 	const [id, setid] = useState<number>(0);
 	const [data, setdata] = useState<{ size: number; saved: number[][] | undefined }>({ size: 4, saved: undefined });
 	useEffect(() => {
-		const raw = localStorage.getItem("save");
+		const raw = localStorage.getItem("autosave");
 		if (raw) {
 			const { size, data }: { size: number; data: { num: number }[][] } = JSON.parse(raw);
 			setdata({ size, saved: data.map((v) => v.map((v) => v.num)) });
