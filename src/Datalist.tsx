@@ -17,9 +17,9 @@ export function Datalist({ action }: { action: (index:number,data:(number[][]|nu
 	}, []);
 	return (
 		<>
-			<div>
+			<div style={{displey:"flex",flexDirection:"column"}}>
 				{data.map((savedata, i) => (
-					<button type="button" key={`${i}${JSON.stringify(savedata)}`} onClick={()=>action(i,data)}>
+					<button style={{height:"120px",width:"250px",border:"solid black 1px"}} type="button" key={`${i}${JSON.stringify(savedata)}`} onClick={()=>action(i,data)}>
 						{savedata ? <Dataview data={savedata} /> : <div>no data</div>}
 					</button>
 				))}
