@@ -18,7 +18,7 @@ export function Newbutton({
 		<>
 			{isopen && (
 				<Overlay close={() => setopen(false)}>
-					<>
+					<div className="text-black">
 						<h3 style={{ marginBlockEnd: "0px" }}>新しくゲームを始める</h3>
 						<h6 style={{ marginBlockStart: "10px", marginBlockEnd: "15px" }}>
 							注：現在のゲームはリセットされます
@@ -35,6 +35,7 @@ export function Newbutton({
 							}}
 						/>
 						<br />
+						<div className="flex items-center bg-blue-600 h-6 py-1 px-2 rounded-full">
 						<button
 							type="button"
 							onClick={() => {
@@ -44,8 +45,8 @@ export function Newbutton({
 							}}
 						>
 							Start
-						</button>
-					</>
+						</button></div>
+					</div>
 				</Overlay>
 			)}
 			<button
