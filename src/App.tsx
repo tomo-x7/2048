@@ -1,9 +1,14 @@
 import { useEffect, useState, useRef } from "react";
-import { Buttons } from "./Buttons";
+import { Buttons } from "./UI/Buttons";
 import { cell, CellElem } from "./Cells";
-import { Touches } from "./Touches";
+import { Touches } from "./UI/Touches";
+import type { savedata } from "./types";
 
-export function App({ size, savedata }: { size: number; savedata?: number[][] }) {
+export function App({
+	size,
+	savedata,
+	topdata,
+}: { size: number; savedata: number[][] | null; topdata: React.MutableRefObject<number[][] | null> }) {
 	console.log(`render with ${JSON.stringify(savedata)}`);
 	const rawdata = useRef<Record<string, cell>>({});
 	const views = useRef<{ left: string[][]; right: string[][]; top: string[][]; bottom: string[][] }>({
@@ -14,6 +19,7 @@ export function App({ size, savedata }: { size: number; savedata?: number[][] })
 	});
 	const [data, setdata] = useState<string[][]>();
 	const mainref = useRef<HTMLDivElement>(null);
+	topdata.current = data ? data.map((v) => v.map((v) => rawdata.current[v].num)) : null;
 	useEffect(() => {
 		rawdata.current = {};
 		const arr1: string[][] = [];
@@ -46,7 +52,10 @@ export function App({ size, savedata }: { size: number; savedata?: number[][] })
 		console.log(
 			JSON.parse(
 				JSON.stringify(
-					Object.entries(views.current).map((a) => ({ k: a[0], v: a[1].map((b) => b.map((c) => rawdata.current[c])) })),
+					Object.entries(views.current).map((a) => ({
+						k: a[0],
+						v: a[1].map((b) => b.map((c) => rawdata.current[c])),
+					})),
 				),
 			),
 		);
@@ -114,43 +123,42 @@ export function App({ size, savedata }: { size: number; savedata?: number[][] })
 	const boxsize = Math.max(Math.min(window.innerWidth * 0.95, window.innerHeight * 0.95, 400), 150);
 	return (
 		<>
-			<div style={{width:"fit-content",display:"flex",flexDirection:"column",alignItems:"center", margin:"8px"}}>
-			<div
-				ref={mainref}
-				style={{
-					display: "grid",
-					width: `${boxsize}px`,
-					height: `${boxsize}px`,
-					gridTemplateColumns: `repeat(${size},1fr)`,
-					gridTemplateRows: `repeat(${size},1fr)`,
-					borderTop: "solid black 5px",
-					borderLeft: "solid black 5px",
-					touchAction: "none",marginBottom:"20px"
-				}}
-			>
-				{data?.map((arr, rowi) =>
-					arr.map((key, coli) => (
-						<CellElem
-							size={boxsize / size}
-							cell={rawdata.current[key]}
-							key={`${rowi}${coli}${rawdata.current[key].num}`}
-						/>
-					)),
-				)}
+			<div className="flex flex-col items-center m-[8px] w-fit">
+				<div
+					className="border-t-[5px] border-l-[5px] border-black border-solid touch-none mb-[20px]"
+					ref={mainref}
+					style={{
+						display: "grid",
+						width: `${boxsize}px`,
+						height: `${boxsize}px`,
+						gridTemplateColumns: `repeat(${size},1fr)`,
+						gridTemplateRows: `repeat(${size},1fr)`,
+					}}
+				>
+					{data?.map((arr, rowi) =>
+						arr.map((key, coli) => (
+							<CellElem
+								size={boxsize / size}
+								cell={rawdata.current[key]}
+								key={`${rowi}${coli}${rawdata.current[key].num}`}
+							/>
+						)),
+					)}
+				</div>
+				<Buttons
+					action={(str) => {
+						slide(str);
+						setdata(data?.slice());
+					}}
+				/>
+				<Touches
+					mainref={mainref}
+					action={(str) => {
+						slide(str);
+						setdata(data?.slice());
+					}}
+				/>
 			</div>
-			<Buttons
-				action={(str) => {
-					slide(str);
-					setdata(data?.slice());
-				}}
-			/>
-			<Touches
-				mainref={mainref}
-				action={(str) => {
-					slide(str);
-					setdata(data?.slice());
-				}}
-			/></div>
 		</>
 	);
 }

@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import downi from "./assets/down.svg"
-import topi from "./assets/top.svg"
-import righti from "./assets/right.svg"
-import lefti from "./assets/left.svg"
+import downi from "../assets/down.svg";
+import topi from "../assets/top.svg";
+import righti from "../assets/right.svg";
+import lefti from "../assets/left.svg";
 
 export function Buttons({
 	action,
@@ -20,15 +20,19 @@ export function Buttons({
 				return;
 			}
 			if (ev.key === "ArrowUp" || ev.key.toLowerCase() === "w") {
+				ev.preventDefault();
 				action("top");
 			}
 			if (ev.key === "ArrowLeft" || ev.key.toLowerCase() === "a") {
+				ev.preventDefault();
 				action("left");
 			}
 			if (ev.key === "ArrowRight" || ev.key.toLowerCase() === "d") {
+				ev.preventDefault();
 				action("right");
 			}
 			if (ev.key === "ArrowDown" || ev.key.toLowerCase() === "s") {
+				ev.preventDefault();
 				action("bottom");
 			}
 		};
@@ -40,18 +44,18 @@ export function Buttons({
 
 	return (
 		<>
-			<div style={{display:"grid", gridTemplate:"repeat(2,60px)/repeat(3,60px)"}}>
-				<button type="button" onClick={top} style={{gridColumn:2,gridRow:1}}>
+			<div style={{ display: "grid", gridTemplate: "repeat(2,60px)/repeat(2,60px)", gap: "10px",rotate:"45deg" }}>
+				<button type="button" onClick={top} style={{ gridColumn: 1, gridRow: 1, rotate: "-45deg" }}>
 					<img src={topi} alt="↑" />
 				</button>
-				<button type="button" onClick={left} style={{gridColumn:1,gridRow:2}}>
-				<img src={lefti} alt="←" />
+				<button type="button" onClick={left} style={{ gridColumn: 1, gridRow: 2, rotate: "-45deg" }}>
+					<img src={lefti} alt="←" />
 				</button>
-				<button type="button" onClick={right} style={{gridColumn:3,gridRow:2}}>
-				<img src={righti} alt="→" />
+				<button type="button" onClick={right} style={{ gridColumn: 2, gridRow: 1, rotate: "-45deg" }}>
+					<img src={righti} alt="→" />
 				</button>
-				<button type="button" onClick={bottom} style={{gridColumn:2,gridRow:2}}>
-				<img src={downi} alt="↓" />
+				<button type="button" onClick={bottom} style={{ gridColumn: 2, gridRow: 2, rotate: "-45deg" }}>
+					<img src={downi} alt="↓" />
 				</button>
 			</div>
 		</>

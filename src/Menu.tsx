@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import { App } from "./App";
 import { Newbutton } from "./Newbutton";
 import { cell } from "./Cells";
+import { Header } from "./Header";
+import { useRef } from "react";
 
 export function Menu() {
 	const [id, setid] = useState<number>(0);
-	const [data, setdata] = useState<{ size: number; saved: number[][] | undefined }>({ size: 4, saved: undefined });
+	const [data, setdata] = useState<{ size: number; saved: number[][] | null }>({ size: 4, saved: null });
+	const topdata=useRef<number[][]>(null)
 	useEffect(() => {
 		const raw = localStorage.getItem("save");
 		if (raw) {
@@ -13,28 +16,15 @@ export function Menu() {
 			setdata({ size, saved: data.map((v) => v.map((v) => v.num)) });
 		}
 	}, []);
+	const load=(data:number[][])=>{
+		setdata({size:data.length,saved:data})
+	}
 	return (
 		<>
-			<div
-				style={{
-					position: "sticky",
-					top: 0,
-					left: 0,
-					right: 0,
-					backgroundColor: "#666",
-					marginBottom: "15px",
-					display: "flex",
-					justifyContent: "space-between",
-				}}
-			>
-				<h2 style={{ margin: 0, fontFamily: "gkktt" }}>
-					<span style={{ fontSize: "1.2em" }}>2048</span>パズル
-				</h2>
-				<div style={{}}>
-					<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: undefined })} setid={setid} />
-				</div>
-			</div>
-			<App key={id} size={data.size} savedata={data.saved} />
+			<Header topdata={topdata} load={load}
+				Newbutton={<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: null })} setid={setid}  />}
+			/>
+			<App key={id} size={data.size} savedata={data.saved} topdata={topdata} />
 			<div style={{ margin: "8px" }}>
 				<h2>使い方</h2>
 				<ul>
