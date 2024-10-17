@@ -5,6 +5,16 @@ export function Dataview({ data }: { data: number[][] }) {
 	const size = boxsize / data.length;
 	return (
 		<>
+		<div
+					className="border-t-[2px] border-l-[2px] border-black border-solid"
+					style={{
+						display: "grid",
+						width: `${boxsize}px`,
+						height: `${boxsize}px`,
+						gridTemplateColumns: `repeat(${size},1fr)`,
+						gridTemplateRows: `repeat(${size},1fr)`,
+					}}
+				>
 			{data.map((arr,i1) =>
 				arr.map((value,i2) => (
 					<div key={`${i1}${i2}${value}`}
@@ -13,8 +23,8 @@ export function Dataview({ data }: { data: number[][] }) {
 							flex: 1,
 							alignItems: "center",
 							justifyContent: "center",
-							borderRight: "solid black 5px",
-							borderBottom: "solid black 5px",
+							borderRight: "solid black 2px",
+							borderBottom: "solid black 2px",
 						}}
 					>
 						<div
@@ -38,6 +48,6 @@ export function Dataview({ data }: { data: number[][] }) {
 					</div>
 				)),
 			)}
-		</>
+		</div></>
 	);
 }
