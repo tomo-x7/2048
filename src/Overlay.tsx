@@ -21,18 +21,11 @@ export function Overlay({ close, children }: { close: () => void; children: Reac
 			>
 				<button
 					type="button"
-					style={{
-						position: "absolute",
-						right: "1px",
-						top: "1px",
-						border: "none",
-						background: "none",
-						color: "gray",
-						padding: 0,
-					}}
+					className="absolute right-[1px] top-[1px] p-0"
+					style={{ color: "gray" }}
 					onClick={close}
 				>
-					<Close width={18} />
+					<Close width={18} color="#444"/>
 				</button>
 				{children}
 			</div>

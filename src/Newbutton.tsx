@@ -20,7 +20,9 @@ export function Newbutton({
 				<Overlay close={() => setopen(false)}>
 					<>
 						<h3 style={{ marginBlockEnd: "0px" }}>新しくゲームを始める</h3>
-						<h6 style={{ marginBlockStart: "10px", marginBlockEnd: "15px" }}>注：現在のゲームはリセットされます</h6>
+						<h6 style={{ marginBlockStart: "10px", marginBlockEnd: "15px" }}>
+							注：現在のゲームはリセットされます
+						</h6>
 						大きさ：{newsize}
 						<input
 							type="range"
@@ -46,16 +48,14 @@ export function Newbutton({
 					</>
 				</Overlay>
 			)}
-			<div>
-				<button
-					type="button"
-					onClick={() => {
-						setopen(true);
-					}}
-				>
-					newgame
-				</button>
-			</div>
+			<button
+				type="button"
+				onClick={() => {
+					setopen(true);
+				}} style={{height:"100%",lineHeight:"100%"}}
+			>
+				newgame
+			</button>
 		</>
 	);
 }

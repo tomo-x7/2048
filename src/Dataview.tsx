@@ -1,53 +1,39 @@
 import { color } from "./Cells";
 
 export function Dataview({ data }: { data: number[][] }) {
-	const boxsize = 100;
-	const size = boxsize / data.length;
+	const size = 100 / data.length;
 	return (
 		<>
-		<div
-					className="border-t-[2px] border-l-[2px] border-black border-solid"
-					style={{
-						display: "grid",
-						width: `${boxsize}px`,
-						height: `${boxsize}px`,
-						gridTemplateColumns: `repeat(${data.length},1fr)`,
-						gridTemplateRows: `repeat(${data.length},1fr)`,
-					}}
-				>
-			{data.map((arr,i1) =>
-				arr.map((value,i2) => (
-					<div key={`${i1}${i2}${value}`}
-						style={{
-							display: "flex",
-							flex: 1,
-							alignItems: "center",
-							justifyContent: "center",
-							borderRight: "solid black 2px",
-							borderBottom: "solid black 2px",
-						}}
-					>
+			<div
+				className="border-t-[3px] border-l-[3px] border-black border-solid"
+				style={{
+					display: "grid",
+					gridTemplateColumns: `repeat(${data.length},${size}px)`,
+					gridTemplateRows: `repeat(${data.length},${size}px)`,
+				}}
+			>
+				{data.map((arr, i1) =>
+					arr.map((value, i2) => (
 						<div
+							key={`${i1}${i2}${value}`}
 							style={{
-								width: "100%",
-								height: "100%",
+								display: "flex",
+								flex: 1,
+								alignItems: "center",
+								justifyContent: "center",
+								borderRight: "solid black 3px",
+								borderBottom: "solid black 3px",
 								color: value ? (color[value]?.[0] ?? "white") : "white",
 								backgroundColor: value ? (color[value]?.[1] ?? "gray") : "white",
-								border: "solid black 2px",
-								margin: "-2px",
-								fontSize: `${Math.min(size / Math.ceil(Math.log10(value)), size / 1.7)}px`,
-								textAlign: "center",
+								fontSize: `${Math.min((size-2) / Math.ceil(Math.log10(value)), size / 1.8)}px`,
 								fontFamily: "gkktt",
-								display: "flex",
-								justifyContent: "center",
-								alignItems: "center",
 							}}
 						>
 							{value || ""}
 						</div>
-					</div>
-				)),
-			)}
-		</div></>
+					)),
+				)}
+			</div>
+		</>
 	);
 }

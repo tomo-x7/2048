@@ -7,7 +7,7 @@ import { useRef } from "react";
 
 export function Menu() {
 	const [id, setid] = useState<number>(0);
-	const [data, setdata] = useState<{ size: number; saved: number[][] | undefined }>({ size: 4, saved: undefined });
+	const [data, setdata] = useState<{ size: number; saved: number[][] | null }>({ size: 4, saved: null });
 	const topdata=useRef<number[][]>(null)
 	useEffect(() => {
 		const raw = localStorage.getItem("save");
@@ -22,7 +22,7 @@ export function Menu() {
 	return (
 		<>
 			<Header topdata={topdata} load={load}
-				Newbutton={<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: undefined })} setid={setid}  />}
+				Newbutton={<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: null })} setid={setid}  />}
 			/>
 			<App key={id} size={data.size} savedata={data.saved} topdata={topdata} />
 			<div style={{ margin: "8px" }}>

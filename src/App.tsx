@@ -2,12 +2,13 @@ import { useEffect, useState, useRef } from "react";
 import { Buttons } from "./UI/Buttons";
 import { cell, CellElem } from "./Cells";
 import { Touches } from "./UI/Touches";
+import type { savedata } from "./types";
 
 export function App({
 	size,
 	savedata,
 	topdata,
-}: { size: number; savedata?: number[][]; topdata: React.MutableRefObject<number[][] | null> }) {
+}: { size: number; savedata: number[][] | null; topdata: React.MutableRefObject<number[][] | null> }) {
 	console.log(`render with ${JSON.stringify(savedata)}`);
 	const rawdata = useRef<Record<string, cell>>({});
 	const views = useRef<{ left: string[][]; right: string[][]; top: string[][]; bottom: string[][] }>({
@@ -18,7 +19,7 @@ export function App({
 	});
 	const [data, setdata] = useState<string[][]>();
 	const mainref = useRef<HTMLDivElement>(null);
-	topdata.current = data?.map((v) => v.map((v) => rawdata.current[v].num)) ?? null;
+	topdata.current = data ? data.map((v) => v.map((v) => rawdata.current[v].num)) : null;
 	useEffect(() => {
 		rawdata.current = {};
 		const arr1: string[][] = [];
