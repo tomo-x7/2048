@@ -11,8 +11,8 @@ export function Dataview({ data }: { data: number[][] }) {
 						display: "grid",
 						width: `${boxsize}px`,
 						height: `${boxsize}px`,
-						gridTemplateColumns: `repeat(${size},1fr)`,
-						gridTemplateRows: `repeat(${size},1fr)`,
+						gridTemplateColumns: `repeat(${data.length},1fr)`,
+						gridTemplateRows: `repeat(${data.length},1fr)`,
 					}}
 				>
 			{data.map((arr,i1) =>
