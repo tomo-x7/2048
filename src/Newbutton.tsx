@@ -35,8 +35,9 @@ export function Newbutton({
 							}}
 						/>
 						<br />
-						<div className="flex items-center bg-blue-600 h-6 py-1 px-2 rounded-full">
+						<div className="flex items-center bg-blue-600 h-6 py-1 px-2 rounded-full w-fit">
 						<button
+							className="text-white"
 							type="button"
 							onClick={() => {
 								setsize(newsize);
