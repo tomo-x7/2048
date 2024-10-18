@@ -1,17 +1,12 @@
 //@ts-nocheck
 import React from "react"
 export class ErrorBoundary extends React.Component {
-  constructor(props:any) {
-      super(props);
+  constructor() {
+      super();
       this.state = { hasError: undefined };
     }
   
-    static getDerivedStateFromError(error:any) {
-      // Update state so the next render will show the fallback UI.
-      return { hasError: error };
-    }
-  
-    componentDidCatch(error:any, info:any) {
+    componentDidCatch(error:unknown, info:unknown) {
       // Example "componentStack":
       //   in ComponentThatThrows (created by App)
       //   in ErrorBoundary (created by App)

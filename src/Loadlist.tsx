@@ -12,7 +12,7 @@ export function Loadlist({ close, load }: { close: () => void; load: (data: numb
 	};
 	return (
 		<Overlay close={close}>
-			<Datalist action={action} close={close} />
+			<Datalist action={action} close={close} viewJumon />
 		</Overlay>
 	);
 }

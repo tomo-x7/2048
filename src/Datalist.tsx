@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 import { Dataview } from "./Dataview";
 import type { savedata } from "./types";
+import { generateJumon } from "./jumon";
 
-export function Datalist({ action, close }: { action: (index: number, data: savedata) => void; close: () => void }) {
+export function Datalist({
+	action,
+	close,
+	viewJumon,
+}: { action: (index: number, data: savedata) => void; close: () => void; viewJumon?: boolean }) {
 	const [data, setdata] = useState<savedata>([...new Array(10)].map((v) => null));
 	useEffect(() => {
 		try {
@@ -53,7 +58,10 @@ export function Datalist({ action, close }: { action: (index: number, data: save
 	}, [close]);
 	return (
 		<>
-			<div style={{ maxWidth: "calc(90vw - 40px)",maxHeight:"calc(90vh - 40px)" }} className="flex flex-col overflow-y-scroll max-h-[80vh]">
+			<div
+				style={{ maxWidth: "calc(90vw - 40px)", maxHeight: "calc(90vh - 40px)" }}
+				className="flex flex-col overflow-y-scroll max-h-[80vh]"
+			>
 				{data.map((savedata, i) => (
 					<button
 						type="button"
@@ -65,7 +73,14 @@ export function Datalist({ action, close }: { action: (index: number, data: save
 						{savedata ? (
 							<>
 								<Dataview data={savedata.data} />
-								<div>{new Date(savedata.date).toLocaleString()}</div>
+								<div>
+									<div>{new Date(savedata.date).toLocaleString()}</div>
+									{viewJumon && (
+										<div>
+											{generateJumon(savedata.data) ?? "ふっかつのじゅもんを生成できませんでした"}
+										</div>
+									)}
+								</div>
 							</>
 						) : (
 							<div>no data</div>

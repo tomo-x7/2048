@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Savelist } from "./Savelist";
 import { Loadlist } from "./Loadlist";
 import type { savedata } from "./types";
+import { LoadJumon } from "./LoadJumon";
 
 export function Header({
 	Newbutton,
@@ -12,7 +13,8 @@ export function Header({
 	topdata: React.MutableRefObject<number[][] | null>;
 	load: (data: number[][]) => void;
 }) {
-	const [saveload, setsaveload] = useState<"save" | "load" | undefined>();
+	const [saveload, setsaveload] = useState<"save" | "load" | "jumon" | undefined>();
+	const close=() => {setsaveload(undefined)}
 	return (
 		<>
 			<div
@@ -32,7 +34,7 @@ export function Header({
 					2048パズル
 				</h2>
 				<div className="flex-1 flex gap-3 text-white justify-end items-center">
-					<div className="flex items-center bg-blue-600 h-6 py-1 px-2 rounded-full"> 
+					<div className="flex items-center bg-blue-600 h-6 py-1 px-2 rounded-full">
 						<button type="button" onClick={() => setsaveload("save")}>
 							save
 						</button>
@@ -42,15 +44,23 @@ export function Header({
 							load
 						</button>
 					</div>
+					<div className="flex items-center bg-blue-600 h-6 py-1 px-2 rounded-full">
+						<button type="button" onClick={() => setsaveload("jumon")}>
+							ふっかつのじゅもんを読み込む
+						</button>
+					</div>
 					<div className="flex items-center bg-blue-600 h-6 py-1 px-2 rounded-full">{Newbutton}</div>
 				</div>
 			</div>
-			{saveload &&
-				(saveload === "save" ? (
-					<Savelist close={() => setsaveload(undefined)} topdata={topdata} />
-				) : (
-					<Loadlist close={() => setsaveload(undefined)} load={load} />
-				))}
+			{
+				(()=>{
+					switch(saveload){
+						case "save":return <Savelist close={close} topdata={topdata} />
+						case "load":return <Loadlist close={close} load={load} />
+						case "jumon":return <LoadJumon close={close} load={load} />
+					}
+				})()
+			}
 		</>
 	);
 }
