@@ -124,7 +124,7 @@ export function App({
 		<>
 			<div className="flex flex-col items-center m-[8px] w-fit">
 				<div
-					className="border-t-[5px] border-l-[5px] border-black border-solid touch-none mb-[20px]"
+					className="border-t-[5px] border-l-[5px] border-black border-solid touch-none"
 					ref={mainref}
 					style={{
 						display: "grid",
@@ -144,6 +144,8 @@ export function App({
 						)),
 					)}
 				</div>
+			</div>
+			<div className="m-[8px]">
 				<Buttons
 					action={(str) => {
 						slide(str);
