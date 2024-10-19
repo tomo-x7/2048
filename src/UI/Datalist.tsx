@@ -68,7 +68,7 @@ export function Datalist({
 					<div
 						key={`${i}${JSON.stringify(savedata)}`}
 						style={{ border: "black solid 1px" }}
-						className="h-[120px] w-[350px] max-w-[100%] shrink-0 flex flex-row items-center p-2 gap-2"
+						className="h-[120px] w-[380px] max-w-[100%] shrink-0 flex flex-row items-center p-2 gap-2"
 					>
 						<Savedata savedata={data} index={i} load={load} nowdata={nowdata} />
 					</div>

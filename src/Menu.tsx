@@ -4,16 +4,35 @@ import { Newbutton } from "./UI/Newbutton";
 import { Header } from "./Header";
 import { useRef } from "react";
 import { notify, Notifyelem } from "./UI/Notify";
+import { parseJumon } from "./jumon";
 
 export function Menu() {
 	const [id, setid] = useState<number>(0);
 	const [data, setdata] = useState<{ size: number; saved: number[][] | null }>({ size: 4, saved: null });
 	const topdata = useRef<number[][]>(null);
 	useEffect(() => {
-		const raw = localStorage.getItem("save");
-		if (raw) {
-			const { size, data }: { size: number; data: { num: number }[][] } = JSON.parse(raw);
-			setdata({ size, saved: data.map((v) => v.map((v) => v.num)) });
+		try {
+			const urldata = new URL(location.href).searchParams.get("data");
+			if (urldata) {
+				const parseddata = parseJumon(urldata, "URL");
+				if (!parseddata) {
+					notify("共有されたデータの読み込みに失敗しました");
+				} else {
+					setdata({ size: Math.sqrt(parseddata.length), saved: parseddata });
+				}
+			}
+		} catch (e) {
+			notify("共有されたデータの読み込みに失敗しました");
+		}
+		try {
+			const raw = localStorage.getItem("save");
+			if (raw) {
+				const { size, data }: { size: number; data: { num: number }[][] } = JSON.parse(raw);
+				setdata({ size, saved: data.map((v) => v.map((v) => v.num)) });
+			}
+		} catch (e) {
+			console.error(e);
+			notify("オートセーブデータの読み込みに失敗しました");
 		}
 	}, []);
 	const load = (data: number[][]) => {

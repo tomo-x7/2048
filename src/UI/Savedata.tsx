@@ -3,6 +3,7 @@ import { generateJumon } from "../jumon";
 import type { savedata } from "../types";
 import { Celldataview } from "./CelldataView";
 import { notify } from "./Notify";
+import { ShowQR } from "./ShowQR";
 import { ViewJumon } from "./ViewJumon";
 
 export function Savedata({
@@ -63,6 +64,7 @@ export function Savedata({
 					<Button onClick={loaddata}>
 						読み込み
 					</Button>
+                    {jumon&&<ShowQR data={thisdata.data} />}
 				</div>
 			</div>
 		</>

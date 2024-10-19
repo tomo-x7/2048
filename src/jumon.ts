@@ -1,5 +1,6 @@
-const base64dict =
+export const jumon64dict =
 	"あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだでどばびぶべぼ";
+export const jumonURLdict = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 const log2 = (num: number, start = 0) => {
 	if (num <= 0) {
 		return 0;
@@ -9,22 +10,32 @@ const log2 = (num: number, start = 0) => {
 	}
 	return log2(num / 2, start + 1);
 };
-export function generateJumon(rawdata: number[][]) {
+export function generateJumon(rawdata: number[][], mode: "jumon" | "URL" = "jumon") {
 	const data = rawdata.flat().map((v) => log2(v));
 	const bytestr = data.map((v) => v.toString(2).padStart(5, "0")).join("");
 	const bytearr = bytestr.padEnd(Math.ceil(bytestr.length / 6) * 6, "0").match(/.{6}/g);
 	if (!bytearr) {
 		return;
 	}
-	const jumon = bytearr
-		.map((v) => v.padStart(6, "0"))
-		.map((v) => Number.parseInt(v, 2))
-		.map((v) => base64dict[v])
-		.join("");
-	return jumon;
+	const jumonbase = bytearr.map((v) => v.padStart(6, "0")).map((v) => Number.parseInt(v, 2));
+
+	switch (mode) {
+		case "jumon":
+			return jumonbase.map((v) => jumon64dict[v]).join("");
+		case "URL":
+			return jumonbase.map((v) => jumonURLdict[v]).join("");
+	}
 }
-export function parseJumon(jumon: string) {
-	const rawdata = Array.from(jumon).map((v) => base64dict.indexOf(v));
+export function parseJumon(jumon: string, mode: "jumon" | "URL" = "jumon") {
+	let rawdata: number[];
+	switch (mode) {
+		case "jumon":
+			rawdata = Array.from(jumon).map((v) => jumon64dict.indexOf(v));
+			break;
+		case "URL":
+			rawdata = Array.from(jumon).map((v) => jumonURLdict.indexOf(v));
+			break;
+	}
 	if (rawdata.length !== rawdata.filter((v) => typeof v === "number" && 0 <= v).length) {
 		return;
 	}
