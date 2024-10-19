@@ -1,7 +1,7 @@
 import { color } from "../Cells";
 
-export function Celldataview({ data:rawdata }: { data?: number[][] }) {
-    const data=rawdata??[...new Array(4)].map((v) => [...new Array(4)].map((v) => 0))
+export function Celldataview({ data: rawdata }: { data?: number[][] }) {
+	const data = rawdata ?? [...new Array(4)].map((v) => [...new Array(4)].map((v) => 0));
 	const size = 100 / data.length;
 	return (
 		<>

@@ -5,11 +5,12 @@ export function ViewJumon({ jumon }: { jumon: string | undefined }) {
 		<>
 			{jumon ? (
 				<>
-					じゅもん: <input
+					じゅもん:{" "}
+					<input
 						onClick={async (ev) => {
-                            ev.currentTarget.select()
+							ev.currentTarget.select();
 							await navigator.clipboard.writeText(jumon);
-                            notify("コピーしました")
+							notify("コピーしました");
 						}}
 						className="border-[1px] border-black text-xs"
 						type="text"

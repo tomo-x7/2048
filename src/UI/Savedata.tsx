@@ -36,9 +36,7 @@ export function Savedata({
 				<div>
 					<div>----/--/-- --:--:--</div>
 					<div>
-						<Button onClick={save}>
-							保存
-						</Button>
+						<Button onClick={save}>保存</Button>
 					</div>
 				</div>
 			</>
@@ -58,17 +56,11 @@ export function Savedata({
 					<ViewJumon jumon={jumon} />
 				</div>
 				<div>
-					<Button onClick={save}>
-						上書き
-					</Button>
-					<Button onClick={loaddata}>
-						読み込み
-					</Button>
-                    {jumon&&<ShowQR data={thisdata.data} />}
+					<Button onClick={save}>上書き</Button>
+					<Button onClick={loaddata}>読み込み</Button>
+					{jumon && <ShowQR data={thisdata.data} />}
 				</div>
 			</div>
 		</>
 	);
 }
-
-

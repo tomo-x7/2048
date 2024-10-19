@@ -18,7 +18,7 @@ export function Menu() {
 				if (!parseddata) {
 					notify("共有されたデータの読み込みに失敗しました");
 				} else {
-					setdata({ size: Math.sqrt(parseddata.length), saved: parseddata });
+					setdata({ size: parseddata.length, saved: parseddata });
 				}
 			}
 		} catch (e) {
