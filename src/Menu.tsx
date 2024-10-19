@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { App } from "./App";
-import { Newbutton } from "./Newbutton";
-import { cell } from "./Cells";
+import { Newbutton } from "./UI/Newbutton";
 import { Header } from "./Header";
 import { useRef } from "react";
+import { notify, Notifyelem } from "./UI/Notify";
 
 export function Menu() {
 	const [id, setid] = useState<number>(0);
 	const [data, setdata] = useState<{ size: number; saved: number[][] | null }>({ size: 4, saved: null });
-	const topdata=useRef<number[][]>(null)
+	const topdata = useRef<number[][]>(null);
 	useEffect(() => {
 		const raw = localStorage.getItem("save");
 		if (raw) {
@@ -16,13 +16,17 @@ export function Menu() {
 			setdata({ size, saved: data.map((v) => v.map((v) => v.num)) });
 		}
 	}, []);
-	const load=(data:number[][])=>{
-		setdata({size:data.length,saved:data})
-	}
+	const load = (data: number[][]) => {
+		setdata({ size: data.length, saved: data });
+	};
 	return (
 		<>
-			<Header topdata={topdata} load={load}
-				Newbutton={<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: null })} setid={setid}  />}
+			<Header
+				topdata={topdata}
+				load={load}
+				Newbutton={
+					<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: null })} setid={setid} />
+				}
 			/>
 			<App key={id} size={data.size} savedata={data.saved} topdata={topdata} />
 			<div style={{ margin: "8px" }}>
@@ -32,6 +36,7 @@ export function Menu() {
 					<li>保存機能、ふっかつのじゅもん機能、一手戻す機能などを今後実装予定</li>
 				</ul>
 			</div>
+			<Notifyelem />
 		</>
 	);
 }

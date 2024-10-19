@@ -1,5 +1,4 @@
 import type { Property } from "csstype";
-import { useEffect, useRef, useState } from "react";
 import style from "./cells.module.css";
 export class cell {
 	num: number;
@@ -30,7 +29,7 @@ export function CellElem({ cell, size }: { cell: cell; size: number }) {
 	if (cell.isNew) {
 		setTimeout(() => {
 			cell.isNew = false;
-		},700);
+		}, 700);
 	}
 	return (
 		<>
@@ -40,7 +39,9 @@ export function CellElem({ cell, size }: { cell: cell; size: number }) {
 						color: cell.num ? (color[cell.num]?.[0] ?? "white") : "white",
 						backgroundColor: cell.num ? (color[cell.num]?.[1] ?? "gray") : "white",
 						fontSize: `${Math.min(size / Math.ceil(Math.log10(cell.num)), size / 1.8)}px`,
-						fontFamily: "gkktt",width:"calc(100% + 4px)",height:"calc(100% + 4px)"
+						fontFamily: "gkktt",
+						width: "calc(100% + 4px)",
+						height: "calc(100% + 4px)",
 					}}
 					className={`border-black border-solid border-2 p-0 m-[-2px] text-center flex justify-center items-center ${cell.isNew ? style.newcell : ""}`}
 				>

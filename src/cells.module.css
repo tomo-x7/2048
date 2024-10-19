@@ -1,11 +1,11 @@
 @keyframes newcell {
-    from{
-        scale: 0;
-    }
-    to{
-        scale: 1;
-    }
+	from {
+		scale: 0;
+	}
+	to {
+		scale: 1;
+	}
 }
-.newcell{
-    animation: newcell 700ms;
+.newcell {
+	animation: newcell 700ms;
 }

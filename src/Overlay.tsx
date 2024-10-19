@@ -25,7 +25,7 @@ export function Overlay({ close, children }: { close: () => void; children: Reac
 					style={{ color: "gray" }}
 					onClick={close}
 				>
-					<Close width={18} color="#444"/>
+					<Close width={18} color="#444" />
 				</button>
 				{children}
 			</div>

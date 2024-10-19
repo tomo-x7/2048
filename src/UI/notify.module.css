@@ -1,0 +1,17 @@
+@keyframes notify {
+	from {
+		translate: 0 100%;
+	}
+    25%{
+        translate: 0 0;
+    }
+    75%{
+        translate: 0 0;
+    }
+	to {
+		translate: 0 100%;
+	}
+}
+.notify{
+    animation: notify 1000ms;translate: 0 100%;
+}

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import downi from "../assets/down.svg";
 import topi from "../assets/top.svg";
 import righti from "../assets/right.svg";
@@ -44,7 +44,9 @@ export function Buttons({
 
 	return (
 		<>
-			<div style={{ display: "grid", gridTemplate: "repeat(2,60px)/repeat(2,60px)", gap: "10px",rotate:"45deg" }}>
+			<div
+				style={{ display: "grid", gridTemplate: "repeat(2,60px)/repeat(2,60px)", gap: "10px", rotate: "45deg" }}
+			>
 				<button type="button" onClick={top} style={{ gridColumn: 1, gridRow: 1, rotate: "-45deg" }}>
 					<img src={topi} alt="↑" />
 				</button>
