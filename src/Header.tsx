@@ -19,13 +19,13 @@ export function Header({
 	return (
 		<>
 			<div
-				className="sticky top-0 left-0 right-0 mb-[15px] flex justify-between h-[40px]"
+				className="sticky top-0 left-0 right-0 mb-[15px] flex justify-between h-fit items-start max-[480px]:flex-col"
 				style={{ backgroundColor: "#666" }}
 			>
 				<h2 className="text-4xl text-white" style={{ fontFamily: "gkktt" }}>
 					2048パズル
 				</h2>
-				<div className="flex-1 flex gap-3 text-white justify-end items-center">
+				<div className="flex-1 flex gap-3 h-full w-full text-white justify-end items-center">
 					<Button onClick={() => setsaveload("saveload")}>データ</Button>
 					<Button onClick={() => setsaveload("jumon")}>じゅもんを読み込む</Button>
 					{Newbutton}
