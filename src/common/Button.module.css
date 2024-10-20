@@ -1,0 +1,9 @@
+.HeaderButton{
+    transition: all 500ms;
+}
+.HeaderButton:hover{
+    background-color: #e5e7eb;
+}
+.HeaderButton:not(:hover){
+    background-color: #fff;
+}

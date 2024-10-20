@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LoadJumon } from "./LoadJumon";
 import { Datalist } from "./UI/Datalist";
-import { Button } from "./common/Button";
+import { Button, HeaderButton } from "./common/Button";
 
 export function Header({
 	Newbutton,
@@ -20,14 +20,14 @@ export function Header({
 		<>
 			<div
 				className="sticky top-0 left-0 right-0 mb-[15px] flex justify-between h-fit items-start max-[480px]:flex-col"
-				style={{ backgroundColor: "#666" }}
+				style={{ backgroundColor: "white", borderBottom: "solid 2px #0000001f" }}
 			>
-				<h2 className="text-4xl text-white" style={{ fontFamily: "gkktt" }}>
+				<h2 className="text-4xl text-black" style={{ fontFamily: "gkktt" }}>
 					2048パズル
 				</h2>
-				<div className="flex-1 flex gap-3 h-full w-full text-white justify-end items-center">
-					<Button onClick={() => setsaveload("saveload")}>データ</Button>
-					<Button onClick={() => setsaveload("jumon")}>じゅもんを読み込む</Button>
+				<div className="flex h-[40px] text-white justify-start items-center">
+					<HeaderButton onClick={() => setsaveload("saveload")}>データ</HeaderButton>
+					<HeaderButton onClick={() => setsaveload("jumon")}>じゅもんを読み込む</HeaderButton>
 					{Newbutton}
 				</div>
 			</div>

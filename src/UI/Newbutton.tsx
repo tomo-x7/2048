@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Overlay } from "../Overlay";
-import { Button } from "../common/Button";
+import { Button, HeaderButton } from "../common/Button";
 
 export function Newbutton({
 	size,
@@ -46,13 +46,13 @@ export function Newbutton({
 					</div>
 				</Overlay>
 			)}
-			<Button
+			<HeaderButton
 				onClick={() => {
 					setopen(true);
 				}}
 			>
 				新規
-			</Button>
+			</HeaderButton>
 		</>
 	);
 }
