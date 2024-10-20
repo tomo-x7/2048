@@ -10,8 +10,8 @@ export function Savedata({
 	savedata,
 	load,
 	index,
-	nowdata,
-}: { savedata: savedata; index: number; load: (data: number[][]) => void; nowdata: number[][] | null }) {
+	nowdata,close
+}: { savedata: savedata; index: number; load: (data: number[][]) => void; nowdata: number[][] | null,close:()=>void }) {
 	const thisdata = savedata[index];
 	if (!nowdata) {
 		return <></>;
