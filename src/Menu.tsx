@@ -48,7 +48,9 @@ export function Menu() {
 					<Newbutton size={data.size} setsize={(p) => setdata({ size: p, saved: null })} setid={setid} />
 				}
 			/>
-			<App key={id} size={data.size} savedata={data.saved} topdata={topdata} />
+			<div className="w-full flex items-center flex-col">
+				<App key={id} size={data.size} savedata={data.saved} topdata={topdata} />
+			</div>
 			<div style={{ margin: "8px" }}>
 				<h2>使い方</h2>
 				<ul>

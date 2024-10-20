@@ -44,6 +44,7 @@ export function Savedata({
 	}
 	const loaddata = () => {
 		load(thisdata.data);
+		notify("読み込みました")
 		close();
 	};
 	const jumon = generateJumon(thisdata.data);

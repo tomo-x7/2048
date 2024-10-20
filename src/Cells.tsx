@@ -41,7 +41,7 @@ export function CellElem({ cell, size }: { cell: cell; size: number }) {
 						fontSize: `${Math.min(size / Math.ceil(Math.log10(cell.num)), size / 1.8)}px`,
 						fontFamily: "gkktt",
 						width: "calc(100% + 4px)",
-						height: "calc(100% + 4px)",
+						height: "calc(100% + 4px)",boxShadow:cell.num?"inset 0.5px 0.5px 3px rgba(0,0,0,.5)":"none"
 					}}
 					className={`border-black border-solid border-2 p-0 m-[-2px] text-center flex justify-center items-center ${cell.isNew ? style.newcell : ""}`}
 				>
