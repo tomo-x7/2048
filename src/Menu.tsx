@@ -51,13 +51,6 @@ export function Menu() {
 			<div className="w-full flex items-center flex-col">
 				<App key={id} size={data.size} savedata={data.saved} topdata={topdata} />
 			</div>
-			<div style={{ margin: "8px" }}>
-				<h2>使い方</h2>
-				<ul>
-					<li>タッチ、矢印キー、WASD、画面上のボタンで操作できます</li>
-					<li>保存機能、ふっかつのじゅもん機能、一手戻す機能などを今後実装予定</li>
-				</ul>
-			</div>
 			<Notifyelem />
 		</>
 	);

@@ -22,7 +22,7 @@ export function LoadJumon({ close, load }: { close: () => void; load: (data: num
 	};
 	return (
 		<Overlay close={close}>
-			<div className="text-black">
+			<div style={{ maxWidth: "calc(90vw - 40px)", maxHeight: "calc(90dvh - 40px)" }} className="text-black">
 				<div>
 					ふっかつのじゅもんを入力
 					<input ref={input} type="text" className="border-black border-[1px] border-solid" />
