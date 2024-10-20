@@ -10,8 +10,15 @@ export function Savedata({
 	savedata,
 	load,
 	index,
-	nowdata,close
-}: { savedata: savedata; index: number; load: (data: number[][]) => void; nowdata: number[][] | null,close:()=>void }) {
+	nowdata,
+	close,
+}: {
+	savedata: savedata;
+	index: number;
+	load: (data: number[][]) => void;
+	nowdata: number[][] | null;
+	close: () => void;
+}) {
 	const thisdata = savedata[index];
 	if (!nowdata) {
 		return <></>;
@@ -44,7 +51,7 @@ export function Savedata({
 	}
 	const loaddata = () => {
 		load(thisdata.data);
-		notify("読み込みました")
+		notify("読み込みました");
 		close();
 	};
 	const jumon = generateJumon(thisdata.data);

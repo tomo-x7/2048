@@ -12,7 +12,7 @@ export function ViewJumon({ jumon }: { jumon: string | undefined }) {
 							await navigator.clipboard.writeText(jumon);
 							notify("コピーしました");
 						}}
-						className="border-[1px] border-black text-xs"
+						className="border-[1px] border-black text-xs text-ellipsis"
 						type="text"
 						value={jumon}
 						readOnly

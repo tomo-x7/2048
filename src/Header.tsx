@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LoadJumon } from "./LoadJumon";
 import { Datalist } from "./UI/Datalist";
-import { Button, HeaderButton } from "./common/Button";
+import { HeaderButton } from "./common/Button";
 import { Help } from "./Help";
 
 export function Header({

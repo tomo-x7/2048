@@ -27,11 +27,24 @@ export function ShowQR({ data }: { data: number[][] }) {
 		<>
 			{show && (
 				<Overlay close={() => setshow(false)}>
-					<img width={100} alt="QRCode" src={qrsrc} />
-					<input type="text" readOnly value={sharesrc} />
+					<div className="flex flex-col items-center">
+						<img width={100} alt="QRCode" src={qrsrc} />
+						<div>
+							<input type="text" readOnly value={sharesrc} className="text-ellipsis" />
+							{sharesrc && (
+								<Button
+									onClick={() => {
+										navigator.clipboard.writeText(sharesrc);
+									}}
+								>
+									コピー
+								</Button>
+							)}
+						</div>
+					</div>
 				</Overlay>
 			)}
-			<Button onClick={onshow}>QRCodeで共有</Button>
+			<Button onClick={onshow}>共有</Button>
 		</>
 	);
 }

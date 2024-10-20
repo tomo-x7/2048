@@ -61,7 +61,7 @@ export function Datalist({
 	return (
 		<Overlay close={close}>
 			<div
-				style={{ maxWidth: "calc(90vw - 40px)", maxHeight: "calc(90dvh - 40px)" }}
+				style={{ maxWidth: "calc(95vw - 40px)", maxHeight: "calc(90dvh - 40px)" }}
 				className="flex flex-col overflow-y-auto"
 			>
 				{data.map((savedata, i) => (
