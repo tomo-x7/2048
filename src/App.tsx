@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { Buttons } from "./UI/Buttons";
 import { cell, CellElem } from "./Cells";
 import { Touches } from "./UI/Touches";
+import { Screenshot } from "./Screenshot";
+import { Camera } from "./assets/camera";
 
 export function App({
 	size,
@@ -17,6 +19,7 @@ export function App({
 		bottom: [],
 	});
 	const [data, setdata] = useState<string[][]>();
+	const [viewScreenshot, setViewScreenshot] = useState(false);
 	const mainref = useRef<HTMLDivElement>(null);
 	topdata.current = data ? data.map((v) => v.map((v) => rawdata.current[v].num)) : null;
 	useEffect(() => {
@@ -145,6 +148,18 @@ export function App({
 					)}
 				</div>
 			</div>
+			<div style={{width:`${boxsize}px`}} className="flex justify-end">
+				<button type="button" onClick={() => setViewScreenshot(true)}>
+					<Camera width={30} />
+				</button>
+			</div>
+			{viewScreenshot && (
+				<Screenshot
+					data={topdata.current ?? []}
+					cellsize={boxsize / size}
+					close={() => setViewScreenshot(false)}
+				/>
+			)}
 			<div className="m-[8px]">
 				<Buttons
 					action={(str) => {
