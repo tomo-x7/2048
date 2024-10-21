@@ -4,5 +4,18 @@
 		"ignore": ["tsconfig.*", "**/node_modules/**"],
 		"include": ["*.*"]
 	},
-	"formatter": { "enabled": true, "indentStyle": "tab", "indentWidth": 4, "lineWidth": 120, "formatWithErrors": true },"linter":{"rules":{"a11y":{"useKeyWithClickEvents":"off"},"style":{"noUselessElse":"off"}}}
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"indentWidth": 4,
+		"lineWidth": 120,
+		"formatWithErrors": true
+	},
+	"linter": {
+		"rules": {
+			"a11y": { "useKeyWithClickEvents": "off" },
+			"style": { "noUselessElse": "off" },
+			"correctness": { "noUnusedImports": "info" }
+		}
+	}
 }

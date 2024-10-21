@@ -1,1 +1,1 @@
-export type savedata=({data:number[][],date:string}|null)[]
+export type savedata = ({ data: number[][]; date: string } | null)[];

@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { Buttons } from "./UI/Buttons";
 import { cell, CellElem } from "./Cells";
 import { Touches } from "./UI/Touches";
-import type { savedata } from "./types";
 
 export function App({
 	size,
@@ -125,7 +124,7 @@ export function App({
 		<>
 			<div className="flex flex-col items-center m-[8px] w-fit">
 				<div
-					className="border-t-[5px] border-l-[5px] border-black border-solid touch-none mb-[20px]"
+					className="border-t-[5px] border-l-[5px] border-black border-solid touch-none"
 					ref={mainref}
 					style={{
 						display: "grid",
@@ -145,6 +144,8 @@ export function App({
 						)),
 					)}
 				</div>
+			</div>
+			<div className="m-[8px]">
 				<Buttons
 					action={(str) => {
 						slide(str);

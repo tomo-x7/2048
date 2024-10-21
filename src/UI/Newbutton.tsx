@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Close } from "./assets/close";
-import type { cell } from "./Cells";
-import { Overlay } from "./Overlay";
+import { Overlay } from "../Overlay";
+import { Button, HeaderButton } from "../common/Button";
 
 export function Newbutton({
 	size,
@@ -35,10 +34,7 @@ export function Newbutton({
 							}}
 						/>
 						<br />
-						<div className="flex items-center bg-blue-600 h-6 py-1 px-2 rounded-full w-fit">
-						<button
-							className="text-white"
-							type="button"
+						<Button
 							onClick={() => {
 								setsize(newsize);
 								setid(Math.random());
@@ -46,18 +42,17 @@ export function Newbutton({
 							}}
 						>
 							Start
-						</button></div>
+						</Button>
 					</div>
 				</Overlay>
 			)}
-			<button
-				type="button"
+			<HeaderButton
 				onClick={() => {
 					setopen(true);
-				}} style={{height:"100%",lineHeight:"100%"}}
+				}}
 			>
-				newgame
-			</button>
+				新規
+			</HeaderButton>
 		</>
 	);
 }

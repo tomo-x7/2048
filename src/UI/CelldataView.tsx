@@ -1,6 +1,7 @@
-import { color } from "./Cells";
+import { color } from "../Cells";
 
-export function Dataview({ data }: { data: number[][] }) {
+export function Celldataview({ data: rawdata }: { data?: number[][] }) {
+	const data = rawdata ?? [...new Array(4)].map((v) => [...new Array(4)].map((v) => 0));
 	const size = 100 / data.length;
 	return (
 		<>
@@ -25,7 +26,7 @@ export function Dataview({ data }: { data: number[][] }) {
 								borderBottom: "solid black 3px",
 								color: value ? (color[value]?.[0] ?? "white") : "white",
 								backgroundColor: value ? (color[value]?.[1] ?? "gray") : "white",
-								fontSize: `${Math.min((size-2) / Math.ceil(Math.log10(value)), size / 1.8)}px`,
+								fontSize: `${Math.min((size - 2) / Math.ceil(Math.log10(value)), size / 1.8)}px`,
 								fontFamily: "gkktt",
 							}}
 						>
