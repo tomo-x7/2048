@@ -1,19 +1,19 @@
 import { color } from "./Cells";
 import { Button } from "./common/Button";
 import { Overlay } from "./Overlay";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect,useState } from "react";
 import { notify } from "./UI/Notify";
 
 export function Screenshot({ close, data, cellsize }: { close: () => void; data: number[][]; cellsize: number }) {
 	const canvasref = useRef<HTMLCanvasElement>(null);
+	const [imgsrc,setimgsrc]=useState("")
+	const [canvassize,setcanvassize]=useState(100)
 	useEffect(() => {
 		if (!canvasref.current) return;
 		const canvas = canvasref.current as HTMLCanvasElement;
 		const ctx = canvas.getContext("2d");
 		if (!ctx) return;
-		const canvassize = data.length * cellsize + 5;
-		canvas.width = canvassize;
-		canvas.height = canvassize;
+		setcanvassize(data.length * cellsize + 5);
 		ctx.lineWidth = 5;
 		ctx.strokeStyle = "#000";
 		ctx.strokeRect(0, 0, canvassize, canvassize);
@@ -34,6 +34,8 @@ export function Screenshot({ close, data, cellsize }: { close: () => void; data:
 				);
 			}
 		}
+		setimgsrc(canvas.toDataURL("image/png"))
+
 	}, [data, cellsize]);
 	const copy = () => {
 		const type = "image/png";
@@ -50,7 +52,8 @@ export function Screenshot({ close, data, cellsize }: { close: () => void; data:
 	return (
 		<Overlay close={close}>
 			<div>
-				<canvas ref={canvasref} />
+				<canvas width={canvassize} height={canvassize} ref={canvasref} style={{display:"none"}} />
+				<img src={imgsrc} width={canvassize} height={canvassize} />
 				右クリックまたは長押しで保存もできます
 				<Button onClick={copy}>コピー</Button>
 			</div>
