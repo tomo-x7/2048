@@ -67,13 +67,13 @@ export function Touches({
 			settouch(undefined);
 		};
 
-		mainref.current?.addEventListener("touchstart", touchstart);
-		mainref.current?.addEventListener("touchmove", touchmove);
-		mainref.current?.addEventListener("touchend", touchend);
+		mainref.current?.addEventListener("touchstart", touchstart, { passive: false });
+		mainref.current?.addEventListener("touchmove", touchmove, { passive: false });
+		mainref.current?.addEventListener("touchend", touchend, { passive: false });
 		return () => {
-			mainref.current?.removeEventListener("touchstart", touchstart);
-			mainref.current?.removeEventListener("touchmove", touchmove);
-			mainref.current?.removeEventListener("touchend", touchend);
+			mainref.current?.removeEventListener("touchstart", touchstart, { passive: false });
+			mainref.current?.removeEventListener("touchmove", touchmove, { passive: false });
+			mainref.current?.removeEventListener("touchend", touchend, { passive: false });
 		};
 	}, [action, mainref]);
 	if (!(direction && touch)) {
