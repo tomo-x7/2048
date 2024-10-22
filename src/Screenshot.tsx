@@ -1,12 +1,12 @@
 import { color } from "./Cells";
 import { Button } from "./common/Button";
 import { Overlay } from "./Overlay";
-import { useRef, useEffect,useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { notify } from "./UI/Notify";
 
 export function Screenshot({ close, data, cellsize }: { close: () => void; data: number[][]; cellsize: number }) {
 	const canvasref = useRef<HTMLCanvasElement>(null);
-	const [imgsrc,setimgsrc]=useState("")
+	const [imgsrc, setimgsrc] = useState("")
 	useEffect(() => {
 		if (!canvasref.current) return;
 		const canvas = canvasref.current as HTMLCanvasElement;
@@ -38,21 +38,26 @@ export function Screenshot({ close, data, cellsize }: { close: () => void; data:
 		setimgsrc(canvas.toDataURL("image/png"))
 	}, [data, cellsize]);
 	const copy = () => {
-		const type = "image/png";
-		canvasref.current?.toBlob(async (blob) => {
-			if (!blob) {
-				notify("エラーが発生しました");
-				return;
-			}
-			const data = [new ClipboardItem({ [type]: blob })];
-			await navigator.clipboard.write(data);
-			notify("コピーしました");
-		}, type);
+		const makeblob = async () => {
+			return new Promise<Blob>((resolve, reject) => {
+				const type = "image/png";
+				canvasref.current?.toBlob(async (blob) => {
+					if (!blob) {
+						notify("エラーが発生しました");
+						reject()
+					}
+					resolve(blob)
+				}, type);
+			})
+		}
+		const data = [new ClipboardItem({ [type]: makeblob() })];
+		await navigator.clipboard.write(data);
+		notify("コピーしました");
 	};
 	return (
 		<Overlay close={close}>
 			<div>
-				<canvas ref={canvasref} style={{display:"none"}} />
+				<canvas ref={canvasref} style={{ display: "none" }} />
 				<img src={imgsrc} />
 				右クリックまたは長押しで保存もできます
 				<Button onClick={copy}>コピー</Button>
