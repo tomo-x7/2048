@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "../common/Button";
 import { generateJumon } from "../jumon";
 import type { savedata } from "../types";
@@ -11,13 +12,13 @@ export function Savedata({
 	load,
 	index,
 	nowdata,
-	close,
+	close,forcerender
 }: {
 	savedata: savedata;
 	index: number;
 	load: (data: number[][]) => void;
 	nowdata: number[][] | null;
-	close: () => void;
+	close: () => void;forcerender:()=>void
 }) {
 	const thisdata = savedata[index];
 	if (!nowdata) {
@@ -28,8 +29,8 @@ export function Savedata({
 		const newdata = savedata.slice();
 		newdata[index] = { data: nowdata, date: new Date().toISOString() };
 		localStorage.setItem("savedata", JSON.stringify(newdata));
-		close();
 		notify("保存しました");
+		forcerender()
 	};
 	if (!thisdata) {
 		return (
@@ -52,7 +53,7 @@ export function Savedata({
 	const loaddata = () => {
 		load(thisdata.data);
 		notify("読み込みました");
-		close();
+		forcerender()
 	};
 	const jumon = generateJumon(thisdata.data);
 	return (

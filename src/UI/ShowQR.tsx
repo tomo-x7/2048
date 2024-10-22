@@ -33,8 +33,9 @@ export function ShowQR({ data }: { data: number[][] }) {
 							<input type="text" readOnly value={sharesrc} className="text-ellipsis" />
 							{sharesrc && (
 								<Button
-									onClick={() => {
-										navigator.clipboard.writeText(sharesrc);
+									onClick={async () => {
+										await navigator.clipboard.writeText(sharesrc);
+										notify("コピーしました");
 									}}
 								>
 									コピー
