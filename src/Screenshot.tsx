@@ -35,6 +35,7 @@ export function Screenshot({ close, data, cellsize }: { close: () => void; data:
 			}
 		}
 		setimgsrc(canvas.toDataURL("image/png"))
+		notify(imgsrc)
 
 	}, [data, cellsize]);
 	const copy = () => {
