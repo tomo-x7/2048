@@ -66,14 +66,14 @@ export function Touches({
 			setdirection(undefined);
 			settouch(undefined);
 		};
-
-		mainref.current?.addEventListener("touchstart", touchstart, { passive: false });
-		mainref.current?.addEventListener("touchmove", touchmove, { passive: false });
-		mainref.current?.addEventListener("touchend", touchend, { passive: false });
+		const option = ({ capture: true, passive: true } as unknown) as EventListenerOptions
+		mainref.current?.addEventListener("touchstart", touchstart, option);
+		mainref.current?.addEventListener("touchmove", touchmove, option);
+		mainref.current?.addEventListener("touchend", touchend, option);
 		return () => {
-			mainref.current?.removeEventListener("touchstart", touchstart, { passive: false });
-			mainref.current?.removeEventListener("touchmove", touchmove, { passive: false });
-			mainref.current?.removeEventListener("touchend", touchend, { passive: false });
+			mainref.current?.removeEventListener("touchstart", touchstart, option);
+			mainref.current?.removeEventListener("touchmove", touchmove, option);
+			mainref.current?.removeEventListener("touchend", touchend, option);
 		};
 	}, [action, mainref]);
 	if (!(direction && touch)) {
