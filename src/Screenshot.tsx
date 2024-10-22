@@ -7,13 +7,14 @@ import { notify } from "./UI/Notify";
 export function Screenshot({ close, data, cellsize }: { close: () => void; data: number[][]; cellsize: number }) {
 	const canvasref = useRef<HTMLCanvasElement>(null);
 	const [imgsrc,setimgsrc]=useState("")
-	const [canvassize,setcanvassize]=useState(100)
 	useEffect(() => {
 		if (!canvasref.current) return;
 		const canvas = canvasref.current as HTMLCanvasElement;
 		const ctx = canvas.getContext("2d");
 		if (!ctx) return;
-		setcanvassize(data.length * cellsize + 5);
+		const canvassize = data.length * cellsize + 5;
+		canvas.width = canvassize;
+		canvas.height = canvassize;
 		ctx.lineWidth = 5;
 		ctx.strokeStyle = "#000";
 		ctx.strokeRect(0, 0, canvassize, canvassize);
@@ -53,7 +54,7 @@ export function Screenshot({ close, data, cellsize }: { close: () => void; data:
 	return (
 		<Overlay close={close}>
 			<div>
-				<canvas width={canvassize} height={canvassize} ref={canvasref} style={{display:"none"}} />
+				<canvas ref={canvasref} style={{display:"none"}} />
 				<img src={imgsrc} />
 				右クリックまたは長押しで保存もできます
 				<Button onClick={copy}>コピー</Button>
