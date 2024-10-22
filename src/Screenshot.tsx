@@ -37,10 +37,10 @@ export function Screenshot({ close, data, cellsize }: { close: () => void; data:
 		}
 		setimgsrc(canvas.toDataURL("image/png"))
 	}, [data, cellsize]);
-	const copy = () => {
+	const copy = async () => {
+		const type = "image/png";
 		const makeblob = async () => {
 			return new Promise<Blob>((resolve, reject) => {
-				const type = "image/png";
 				canvasref.current?.toBlob(async (blob) => {
 					if (!blob) {
 						notify("エラーが発生しました");
