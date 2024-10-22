@@ -44,7 +44,7 @@ export function Screenshot({ close, data, cellsize }: { close: () => void; data:
 				canvasref.current?.toBlob(async (blob) => {
 					if (!blob) {
 						notify("エラーが発生しました");
-						reject()
+						return reject();
 					}
 					resolve(blob)
 				}, type);
