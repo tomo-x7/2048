@@ -58,7 +58,7 @@ export function Screenshot({ close, data, cellsize }: { close: () => void; data:
 		<Overlay close={close}>
 			<div>
 				<canvas ref={canvasref} style={{ display: "none" }} />
-				<img src={imgsrc} />
+				<img src={imgsrc} width={data.length * cellsize + 5} height={data.length * cellsize + 5} />
 				右クリックまたは長押しで保存もできます
 				<Button onClick={copy}>コピー</Button>
 			</div>
