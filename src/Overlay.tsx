@@ -7,7 +7,7 @@ export function Overlay({ close, children }: { close: () => void; children: Reac
 		setTimeout(close, 100);
 	}
 	useEffect(()=>{
-		setopa(0.4);
+		setopa(1);
 	},[])
 	return (
 		<div
@@ -15,7 +15,7 @@ export function Overlay({ close, children }: { close: () => void; children: Reac
 			style={{
 				inset: 0,
 				position: "fixed",
-				backgroundColor: `rgb(0 0 0 / ${opa})`,
+				backgroundColor: `rgb(0 0 0 / ${opa * 0.4})`,
 				zIndex: 10,
 				display: "flex",
 				justifyContent: "center",
@@ -26,7 +26,7 @@ export function Overlay({ close, children }: { close: () => void; children: Reac
 		>
 			<div
 				onClick={(ev) => ev.stopPropagation()}
-				style={{ background: "#fff", position: "relative", padding: "20px" }}
+				style={{ background: "#fff", position: "relative", padding: "20px",opacity:opa,transition:"opacity 500ms" }}
 			>
 				<button
 					type="button"
