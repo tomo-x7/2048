@@ -15,14 +15,13 @@ export function Overlay({ close, children }: { close: () => void; children: Reac
 			style={{
 				inset: 0,
 				position: "fixed",
-				backgroundColor: "#0006",
+				backgroundColor: `rgb(0 0 0 / ${opa})`,
 				zIndex: 10,
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",
 				touchAction: "none",
-				opacity:opa,
-				transition:"opacity 500ms"
+				transition:"background-color 500ms"
 			}}
 		>
 			<div
