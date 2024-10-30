@@ -4,7 +4,7 @@ export function Overlay({ close, children }: { close: () => void; children: Reac
 	const [opa,setopa]=useState(0);
 	const onclick=()=>{
 		setopa(0);
-		setTimeout(close, 100);
+		setTimeout(close, 600);
 	}
 	useEffect(()=>{
 		setopa(1);
